@@ -1,19 +1,11 @@
 # test-demo
 
-## Project setup
-```
-npm install
-```
+## 介绍
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+用于平常一个单独的页面或功能的调试
 
-### Compiles and minifies for production
-```
-npm run build
 ```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+```
