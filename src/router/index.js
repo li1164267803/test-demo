@@ -19,6 +19,11 @@ const routes = [
     path: "/model",
     name: "model",
     component: () => import("../views/model.vue")
+  },
+  {
+    path: "/hove",
+    name: "hove",
+    component: () => import("../views/hove.vue")
   }
 ];
 
