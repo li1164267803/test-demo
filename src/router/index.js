@@ -24,6 +24,11 @@ const routes = [
     path: "/hove",
     name: "hove",
     component: () => import("../views/hove.vue")
+  },
+  {
+    path: "/wacth",
+    name: "wacth",
+    component: () => import("../views/wacth_test")
   }
 ];
 

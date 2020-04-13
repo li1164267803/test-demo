@@ -55,7 +55,7 @@ export default {
     components: { showTipsAntd, showTipsIview, AButton: Button },
     data() {
         return {
-            title1: '实打实的方式地方是对冯绍峰',
+            title1: '文字少滑入不显示tost',
             title: '一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个一个汉子一个汉子一个汉子一个汉子一个一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子'
         }
     },

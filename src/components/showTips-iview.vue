@@ -31,7 +31,7 @@ export default {
         }
     },
     methods: {
-        async mouseenter() {
+        mouseenter() {
             const { title, $refs: { showTips, showTips: { offsetWidth, offsetHeight } } } = this;
             const textDiv = document.createElement('div')
             const curStyle = window.getComputedStyle(showTips)
