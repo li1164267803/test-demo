@@ -41,6 +41,10 @@ const routes = [{
         path: "/table",
         name: "table",
         component: () => import("../views/table/table")
+    },{
+        path: "/native",
+        name: "native",
+        component: () => import("../views/native")
     }
 ];
 

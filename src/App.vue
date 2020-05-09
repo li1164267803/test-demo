@@ -7,6 +7,7 @@
       <router-link to="/sync" tag="button">测试父子组件sync</router-link>
       <router-link to="/time" tag="button">时间小于10加0</router-link>
       <router-link to="/table" tag="button">重写的table</router-link>
+      <router-link to="/native" tag="button">父组件中在子组件上使用@click和@click.native的区别</router-link>
     </div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
       <router-view />
@@ -18,9 +19,7 @@ export default {
   data() {
     return {
       cache: Object.create(null),
-      includeKey: [
-        "/sync"
-      ]
+      includeKey: ["/sync"]
     };
   },
   computed: {
