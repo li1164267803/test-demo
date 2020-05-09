@@ -33,16 +33,20 @@ const routes = [{
         path: "/sync",
         name: "sync",
         component: () => import("../views/sync/Father")
-    },{
+    }, {
         path: "/time",
         name: "time",
         component: () => import("../views/Time")
+    },{
+        path: "/table",
+        name: "table",
+        component: () => import("../views/table/table")
     }
 ];
 
 const router = new VueRouter({
     // mode: "history",
-    mode:"hash",
+    mode: "hash",
     base: process.env.BASE_URL,
     routes
 });

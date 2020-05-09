@@ -15,6 +15,7 @@
 import Childen from "./Childen";
 export default {
   components: { Childen },
+  name: "syncc",
   data() {
     return {
       num: 123,
@@ -29,6 +30,9 @@ export default {
       console.log(data, "触发data");
       this.num = data;
     }
+  },
+  activated() {
+    console.log("缓存的父子sync");
   }
 };
 </script>
