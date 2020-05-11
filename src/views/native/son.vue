@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button>子组件</button>
+    <button @click="parentHandel">子组件@click</button>
+    <button>子组件@click.native</button>
     <slot></slot>
   </div>
 </template>
@@ -9,12 +10,11 @@
 export default {
   name: "son",
   methods: {
-    active() {
-      console.log("son的方法");
+    parentHandel() {
+      this.$emit("click");
+      //   console.log("子组件触发夫组件的自定义的cliak的方法");
     }
-  },
-  mounted() {
-    this.$emit("click");
   }
 };
 </script>
+
