@@ -5,6 +5,12 @@
       <el-table-column prop="date" label="日期" width="180"></el-table-column>
       <el-table-column prop="name" label="姓名" width="180"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
+
+      <el-table-column
+        prop="address"
+        label="地址"
+        :render-header="(h)=>renderHeader(h,'完课率','（出勤/未出勤且看回放/应出勤）')"
+      ></el-table-column>
     </el-table>
   </div>
 </template>
@@ -37,6 +43,18 @@ export default {
       ]
     };
   },
+  methods: {
+    // table表格头标题换行
+    renderHeader(h, a, b) {
+      //   return [h("p", { color: "red" }, [a]), h("p", {}, [b])];
+      return (
+        <div>
+          <span class="left">{a}</span>
+          <span class="right">{b}</span>
+        </div>
+      );
+    }
+  },
   mounted() {
     console.log(this.$refs.reference, 4444);
     console.log(this.$refs.reference.$children[0], 5555);
@@ -44,3 +62,28 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+/deep/ .has-gutter {
+  height: 30px;
+  color: red;
+  th {
+    padding: 15px 0;
+  }
+}
+/deep/ th {
+  font-family: PingFangSC-Semibold, PingFang SC;
+  .left {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(144, 147, 154, 1);
+    line-height: 14px;
+  }
+  .right {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(144, 147, 154, 1);
+    color: red;
+    line-height: 12px;
+  }
+}
+</style>

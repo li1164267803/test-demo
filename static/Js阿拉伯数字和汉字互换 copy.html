@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //  阿拉伯数字转汉字
+        let toChinesNum = (num) => {
+            let changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+            let unit = ["", "十", "百", "千", "万", "亿", "万亿", "亿亿"];
+            num = parseInt(num);
+            let getWan = (temp) => {
+                let strArr = temp.toString().split("").reverse();
+                let newNum = "";
+                for (var i = 0; i < strArr.length; i++) {
+                    newNum = (i == 0 && strArr[i] == 0 ? "" : (i > 0 && strArr[i] == 0 && strArr[i - 1] == 0 ?
+                        "" : changeNum[strArr[i]] + (strArr[i] == 0 ? unit[0] : unit[i]))) + newNum;
+                }
+                //  替换以“一十”开头的，为“十”
+                if (newNum.indexOf("一十") == 0) newNum = newNum.substr(1);
+                return newNum;
+            }
+            let overWan = Math.floor(num / 10000);
+            let noWan = num % 10000;
+            if (noWan.toString().length < 4) {
+                noWan = "0" + noWan;
+            }
+            return overWan ? getWan(overWan) + "万" + getWan(noWan) : getWan(num);
+        }
+        console.log(toChinesNum(1008918978));
+
+        // 阿拉伯数字转换为汉字
+        //  https://blog.csdn.net/gmd_web/article/details/55254131 JavaScript实现阿拉伯数字和中文数字互相转换
+        function SectionToChinese(section) {
+            var chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+            var chnUnitSection = ["", "万", "亿", "万亿", "亿亿"];
+            var chnUnitChar = ["", "十", "百", "千"];
+            var strIns = '',
+                chnStr = '';
+            var unitPos = 0;
+            var zero = true;
+            while (section > 0) {
+                var v = section % 10;
+                if (v === 0) {
+                    if (!zero) {
+                        zero = true;
+                        chnStr = chnNumChar[v] + chnStr;
+                    }
+                } else {
+                    zero = false;
+                    strIns = chnNumChar[v];
+                    strIns += chnUnitChar[unitPos];
+                    chnStr = strIns + chnStr;
+                }
+                unitPos++;
+                section = Math.floor(section / 10);
+            }
+            //  替换以“一十”开头的，为“十”
+            if (chnStr.indexOf("一十") == 0) {
+                chnStr = chnStr.substr(1);
+            }
+
+            return chnStr;
+        }
+        console.log(SectionToChinese(1244));
+
+        // 汉字转换为阿拉伯数字
+        function ChineseToNumber(chnStr) {
+            var chnNumChar = {
+                零: 0,
+                一: 1,
+                二: 2,
+                三: 3,
+                四: 4,
+                五: 5,
+                六: 6,
+                七: 7,
+                八: 8,
+                九: 9,
+            };
+            var chnNameValue = {
+                十: {
+                    value: 10,
+                    secUnit: false
+                },
+                百: {
+                    value: 100,
+                    secUnit: false
+                },
+                千: {
+                    value: 1000,
+                    secUnit: false
+                },
+                万: {
+                    value: 10000,
+                    secUnit: true
+                },
+                亿: {
+                    value: 100000000,
+                    secUnit: true
+                }
+            };
+            var rtn = 0;
+            var section = 0;
+            var number = 0;
+            var secUnit = false;
+            var str = chnStr.split('');
+            for (var i = 0; i < str.length; i++) {
+                console.log(i, str[i]);
+                var num = chnNumChar[str[i]];
+                console.log(typeof num, 'typeof', num);
+                if (typeof num !== 'undefined') {
+                    number = num;
+                    if (i === str.length - 1) {
+                        section += number;
+                    }
+                } else {
+                    var unit = chnNameValue[str[i]].value;
+                    secUnit = chnNameValue[str[i]].secUnit;
+                    if (secUnit) {
+                        section = (section + number) * unit;
+                        rtn += section;
+                        section = 0;
+                    } else {
+                        section += (number * unit);
+                    }
+                    // 处理以十开头的数字 十七等 
+                    // 0 * 10 还是0 所以section为0
+                    if (section == 0 && unit == 10) section += 10
+                    number = 0;
+                }
+            }
+            return rtn + section;
+        }
+        console.log(ChineseToNumber('七百九十三'), '输出');
+    </script>
+</body>
+
+</html>

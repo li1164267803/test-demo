@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -11,19 +11,38 @@
 
 </body>
 <script>
-    for (let i = (setTimeout(() => console.log('a->', i)), 0); setTimeout(() => console.log('b->', i)), i < 5; i++) {
-        i++
-    }
-
-    let array = [1, 2, 34, 5, 6]
-    for (let index = 0; index < array.length; index++) {
-
-    }
-    console.log('---------------------');
+    // for (let i = (setTimeout(() => console.log('a->', i)), 0); setTimeout(() => console.log('b->', i)), i < 5; i++) {
+    //     i++
+    // }
+    // console.log('---------------------');
 
     // let ittt = (setTimeout(() => console.log('a->', ittt)), 0);
     // setTimeout(() => console.log('b->', ittt))
     // console.log(ittt, 454545454545);
+
+    /** 
+     * 如果函数内部是通过 arguments 调用参数，而没有实际定义参数的话，length 只会的得到 0。
+     * 所以函数的 length 属性只能得到他的形参个数，而无法得知实参个数。
+     * Function这个构造器本身也是一个函数，它接受至少一个参数，这个参数便是定义函数后的函数体
+     * https://blog.csdn.net/CanMoHaiYan/article/details/105157908
+     */
+    // var yidenga = Function.length; // 1
+    // yidengd = new Function().length; // 0
+    // yidengc = Function().length; // 0
+    // console.log(yidenga === yidengd, yidenga, yidengd, yidengc);
+
+
+    // let my_time = 1430960
+    // var days = my_time / 60 / 60 / 24;
+    // var daysRound = Math.floor(days);
+    // var hours = my_time / 60 / 60 - (24 * daysRound);
+    // var hoursRound = Math.floor(hours);
+    // var minutes = my_time / 60 - (24 * 60 * daysRound) - (60 * hoursRound);
+    // var minutesRound = Math.floor(minutes);
+    // var seconds = my_time - (24 * 60 * 60 * daysRound) - (60 * 60 * hoursRound) - (60 * minutesRound);
+    // console.log('转换时间:', daysRound + '天', hoursRound + '时', minutesRound + '分', seconds + '秒');
+    // var time = hoursRound + ':' + minutesRound + ':' + seconds
+    // console.log(time);
 </script>
 
 </html>
