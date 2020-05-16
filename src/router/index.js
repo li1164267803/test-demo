@@ -37,14 +37,18 @@ const routes = [{
         path: "/time",
         name: "time",
         component: () => import("../views/Time")
-    },{
+    }, {
         path: "/table",
         name: "table",
         component: () => import("../views/table/table")
-    },{
+    }, {
         path: "/native",
         name: "native",
         component: () => import("../views/native")
+    }, {
+        path: "/dowlondFile",
+        name: "dowlondFile",
+        component: () => import("../views/dowlondFile")
     }
 ];
 
