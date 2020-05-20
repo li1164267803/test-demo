@@ -46,9 +46,9 @@ const routes = [{
         name: "native",
         component: () => import("../views/native")
     }, {
-        path: "/dowlondFile",
-        name: "dowlondFile",
-        component: () => import("../views/dowlondFile")
+        path: "/dowlondFileZip",
+        name: "dowlondFileZip",
+        component: () => import("../views/dowlondFileZip")
     }
 ];
 

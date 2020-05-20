@@ -14,7 +14,9 @@
       <router-link to="/native" tag="button"
         >父组件中在子组件上使用@click和@click.native的区别</router-link
       >
-      <router-link to="/dowlondFile" tag="button">dowlondZip文件</router-link>
+      <router-link to="/dowlondFileZip" tag="button"
+        >dowlondZip文件</router-link
+      >
     </div>
     <keep-alive
       :cache="cache"
