@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="main" style="width: 600px; height: 400px;"></div>
+    <script src="echarts.js"></script>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+
+      var myChart = echarts.init(document.getElementById("main"));
+
+      var weatherIcons = {
+        // Sunny: ROOT_PATH + "data/asset/img/weather/sunny_128.png",
+        Sunny: "./dianzhan.png",
+        // Cloudy: ROOT_PATH + "data/asset/img/weather/cloudy_128.png",
+        // Showers: ROOT_PATH + "data/asset/img/weather/showers_128.png",
+      };
+
+      option = {
+        title: {
+          text: "天气情况统计",
+          subtext: "虚构数据",
+          left: "center",
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c} ({d}%)",
+        },
+        series: [
+          {
+            type: "pie",
+            radius: "65%",
+            center: ["50%", "50%"],
+            selectedMode: "single",
+            data: [
+              {
+                value: 1548,
+                name: "幽州",
+                label: {
+                  formatter: ["{title|{b}}{Sunny|}{value|202}"].join(""),
+                  borderWidth: 1,
+                  backgroundColor: "#999",
+                  borderRadius: 4,
+                  align: "right",
+                  rich: {
+                    title: {
+                      align: "left",
+                      borderColor: "red",
+                      borderWidth: 1,
+                    },
+                    Sunny: {
+                      height: 30,
+                      align: "left",
+                      // lineHeight: 30,
+                      verticalAlign: "bottom",
+                      borderColor: "red",
+                      borderWidth: 1,
+                      padding: [0, 0, 0, 0],
+                      backgroundColor: {
+                        image: weatherIcons.Sunny,
+                      },
+                    },
+                    value: {
+                      width: 20,
+                      padding: [0, 20, 0, 30],
+                      align: "left",
+                    },
+                  },
+                },
+              },
+              { value: 535, name: "荆州" },
+              { value: 510, name: "兖州" },
+              { value: 634, name: "益州" },
+              { value: 735, name: "西凉" },
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
+            },
+          },
+        ],
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      function eConsole(param) {
+          console.log(param,'param');
+          
+        alert(param.name); //点击处的名字
+        alert(param.value); //点击处的值
+        alert(param.dataIndex); //获取当前点击索引
+      }
+      myChart.on("click", eConsole);
+
+      // document.querySelector('#main').addEventListener('click', function (e) {
+      //     var target = e.target
+      //     if (target.tagName === 'tspan') {
+      //         var textContent = target.textContent
+      //         if (~textContent.indexOf('Apples')) {
+      //             console.log('调用全对')
+      //         } else if (~textContent.indexOf('Strawberries')) {
+      //             console.log('调用做完')
+      //         }
+      //     }
+      // })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动拖拽功能</title>
+    <style>
+        ul {
+            border: 1px solid #000;
+            /* display: flex; */
+            height: 400px;
+        }
+        ul li {
+            width: 100px;
+            height: 30px;
+            background-color: pink;
+            list-style: none;
+            margin-left: 10px;
+            margin-top: 10px;
+            position: absolute;
+        }
+        span{
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li draggable="true"></li>
+            <li draggable="true"></li>
+            <li draggable="true"></li>
+            <li draggable="true"></li>
+            <li draggable="true"></li>
+        </ul>
+    </div>
+</body>
+<script>
+    let ul = document.querySelector('ul');
+    ul.addEventListener('dragstart',function (e) {
+        if(e.target.nodeName.toLowerCase() == 'li') {
+            console.log('拖拽');
+        } 
+    })
+    ul.addEventListener('drag',function (e) {
+        if(e.target.nodeName.toLowerCase() == 'li') {
+            console.log('拖拽中',e.target.offsetLeft,e.target.offsetTop);
+            // console.log('拖拽中',e);
+        }
+    })
+    ul.addEventListener('dragend',function (e) {
+        if(e.target.nodeName.toLowerCase() == 'li') {
+            console.log('取消拖拽',e.target.offsetLeft,e.target.offsetTop);
+            e.target.style.position="fixed";
+            e.target.style.left=e.target.offsetLeft+'px';
+            e.target.style.top=e.target.offsetTop+'px';
+            // e.target.style.left=e.offsetX+'px';
+            // e.target.style.top=e.offsetY+'px';
+        } 
+    })
+
+    
+  
+</script>
+</html>

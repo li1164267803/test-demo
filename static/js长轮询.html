@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        // js
+      //检测浏览器
+      var isIE = navigator.userAgent.match(/MSIE (\d)/i);
+      isIE = isIE ? isIE[1] : undefined;
+      //闭包
+      (function() {
+        var xhr, f;
+        //保存当前闭包指针
+        f = arguments.callee;
+        console.log(f, "f", arguments);
+        xhr =
+          isIE < 9
+            ? new ActiveXObject("Microsoft.XMLHTTP")
+            : new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+            //把接收到的文字输出
+            var div = document.createElement("div");
+            div.appendChild(document.createTextNode(xhr.responseText));
+            document.body.appendChild(div);
+            // f(); //间接递归
+          }
+        };
+        xhr.open("GET", "test. php ", true);
+        xhr.send();
+      })();
+    </script>
+
+    <script>
+        // https://www.iteye.com/blog/lwn-1674700 ajax长轮询的实现
+        var step = 1,
+        getProgress = function(){
+            $.ajax({
+                type:"POST",
+                url:'getdata.php',
+                dataType:'text',
+                data:{step:step},
+                timeout:10*60*1000,  //设置10分钟超时
+                success:function(data){
+                    data = (new Function("return "+data))();
+                    if(data.step == 1){
+                        console.log("step 1 complete");
+                        step++;
+                        getProgress();
+
+                    } else if(data.step == 2){
+                        console.log("step 2 complete");
+                        step++;
+                        getProgress();
+                    } else if(data.step == 3){
+                        console.log("all complete!");
+                    } else if(data == "error"){ //如果出错，则重试
+                        getProgress();
+                    }
+                },
+                error:function(){
+                    alert("运算超时");
+                }
+            });
+        };
+        // php
+        if(!emptyempty($_POST['step'])){
+            $step = $_POST['step'];
+            set_time_limit(0);  //这里是关键，设置链接永不过时
+            if($step == 1){           //每一步由不同的shell处理，php会等shell执行完毕再继续执行
+                $sh = "./test1.sh";
+            } else if($step == 2){
+                $sh = "./test2.sh";
+            } else if($step == 3){
+                $sh = "./test3.sh";
+            }
+
+            $ret = exec($sh,$results,$rc);
+            if($rc == 0){
+                echo "{step:".$step."}";
+            } else {
+                echo "error";
+            }
+
+        }
+    </script>
+  </body>
+</html>

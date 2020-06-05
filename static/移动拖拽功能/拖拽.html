@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    .draggable {
+      display: inline-block;
+      width: 200px;
+      height: 20px;
+      padding: 10px 2px;
+      margin: 10px;
+      border-radius: 4px;
+      text-align: center;
+      background: lightblue;
+    }
+
+    .dropzone {
+      position: absolute;
+      width: 200px;
+      height: 40px;
+      background: blueviolet;
+      margin-bottom: 10px;
+    }
+
+    .dropzone:nth-child(1) {
+      top: 300px;
+    }
+
+    .dropzone:nth-child(2) {
+      top: 350px;
+    }
+
+    .dropzone:nth-child(3) {
+      top: 400px;
+    }
+
+    .dropzone:nth-child(4) {
+      top: 450px;
+    }
+
+    .abs {
+        /* 处理拖动后文档流变化问题 */
+      position: fixed;
+      z-index: 1;
+    }
+
+    .options-container {
+        /* 拖动集合的flex布局 */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .dropzone .draggable {
+      /* 移动到指定位置后删除定位，保留left和top */
+      margin: 0;
+      position: static; 
+    }
+  </style>
+  <div id="optionsContainer" class="options-container">
+
+  </div>
+  <div id="dropzoneContainer">
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+  </div>
+  
+  <script>
+    /**
+    * 1.判断是移动端还是pc决定使用那种方法
+    * 2.要以参数的形式传入到方法中
+    */
+
+    var options = [{
+      code: "A",
+      value: '被拖拽的元素1'
+    }, {
+      code: "B",
+      value: '被拖拽的元素2'
+    }, {
+      code: "C",
+      value: '被拖拽的元素3'
+    }, {
+      code: "D",
+      value: '被拖拽的元素4'
+    }, {
+      code: "E",
+      value: '被拖拽的元素5'
+    }, {
+      code: "F",
+      value: '被拖拽的元素6'
+    }, {
+      code: "G",
+      value: '被拖拽的元素7'
+    }, {
+      code: "H",
+      value: '被拖拽的元素8'
+    }, {
+      code: "I",
+      value: '被拖拽的元素9'
+    }, {
+      code: "J",
+      value: '被拖拽的元素10'
+    }, {
+      code: "K",
+      value: '被拖拽的元素11'
+    }]
+    init(options)
+    
+    function init(options) {
+      var optionsContainer = document.querySelector('#optionsContainer')
+      var dropzoneContainer = document.querySelector("#dropzoneContainer")
+      var fragments = options.reduce((fragment, option) => {
+        var draggable = document.createElement('div')
+        draggable.classList.add('draggable') // 给所有的标签添加用来清除定位的draggable样式
+        draggable.code = option.code || ''
+        draggable.innerHTML = option.value
+        draggable.draggable = true
+        fragment.appendChild(draggable)
+        return fragment
+      }, document.createDocumentFragment()) // createdocumentfragment()方法创建了一虚拟的节点对象，节点对象包含所有属性和方法。
+      optionsContainer.appendChild(fragments)
+      var draggables = document.querySelectorAll('.draggable') // 获取初始化的拖动元素集合
+      var dropzones = document.querySelectorAll('.dropzone') // 目标位置集合
+      draggables.forEach(draggable => {
+          // getBoundingClientRect() 方法返回元素的大小及其相对于视口的位置。
+        var { x, y } = draggable.getBoundingClientRect()
+        draggable.top = y + 'px'
+        draggable.left = x + 'px'
+        Object.assign(draggable.style, {
+          top: draggable.top,
+          left: draggable.left
+        })
+      })
+      draggables.forEach(draggable => {
+        draggable.classList.add('abs'); // 给所有的拖动元素设置定位
+      })
+      var options = {
+          // Array.from() 方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
+        draggables: Array.from(draggables), // 初始化的拖动元素集合
+        dropzones: Array.from(dropzones), // 目标位置集合
+        drop() {
+          var draggableds = dropzoneContainer.querySelectorAll('.draggable') // 所有的
+          draggableds = Array.from(draggableds)
+          // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+        /*
+            reduce为数组中的每一个元素依次执行callback函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：
+                accumulator 累计器
+                currentValue 当前值
+                currentIndex 当前索引
+                array 数组                
+                注意：如果没有提供initialValue，reduce 会从索引1的地方开始执行 callback 方法，跳过第一个索引。如果提供initialValue，从索引0开始。
+        */
+          var codes = draggableds.reduce((result, draggabled) => {
+            return result + draggabled.code
+          }, '')
+          // 获取目标区域中的元素key有哪些
+          console.log(codes)
+        }
+      }
+      dropFn(options)
+      function dropFn({ draggables, dropzones, drop = () => { } }) {
+        draggables = Array.from(draggables); // 初始化的拖动元素集合
+        dropzones = Array.from(dropzones); // 目标位置集合
+        var touchEl = false;
+        if ('ondrag' in document) { // 浏览器是否支持ondrag
+          draggables.forEach(_dropPC)
+          function _dropPC(draggable) {
+            draggable.addEventListener('dragstart', drag) // 开始移动
+          }
+          dropzones.forEach(dropzone => {
+            dropzone.addEventListener('dragover', dragover) // 移动到了指定位置触发
+            dropzone.addEventListener('drop', ondrop) // 移动元素到指定位置松下鼠标触发
+          })
+          function drag() { // 开始移动事件，获取点击移动的element
+            touchEl = this
+          }
+          function dragover(e) { // 移动到目标时触发
+            // 阻止默认动作以启用drop
+            e.preventDefault();
+          }
+          function ondrop(e) { // 移动元素到指定位置松下鼠标触发
+            // 阻止默认动作（如打开一些元素的链接）
+            e.preventDefault();
+            // firstElementChild 获取父元素下的第一个节点对象  console.dir(this)
+            var prevChild = this.firstElementChild
+            if (prevChild) { // 如果当前容器中，有一个元素后执行
+                //  touchEl.parentElement 当前元素初始化的父级
+                // insertBefore 移动某个列表项到另一个列表项： https://www.runoob.com/jsref/met-node-insertbefore.html
+              touchEl.parentElement.insertBefore(prevChild, touchEl)
+            }
+            this.appendChild(touchEl); 
+            reset()
+            drop()
+          }
+        } else {
+          draggables.forEach(_dropMobile)
+          function _dropMobile(draggable) {
+            draggable.addEventListener('touchstart', touchstart)
+            draggable.addEventListener('touchend', touchend)
+            draggable.addEventListener('touchcancel', reset)
+          }
+          document.addEventListener('touchmove', touchmove)
+
+          function touchstart() {
+            touchEl = this
+          }
+          function touchmove(e) {
+            if (touchEl) {
+              var touch = e.changedTouches[0]
+              var pageX = touch.pageX
+              var pageY = touch.pageY
+              var { width, height } = touchEl.getBoundingClientRect()
+              Object.assign(touchEl.style, {
+                left: pageX - width / 2 + 'px',
+                top: pageY - height / 2 + 'px'
+              })
+            }
+          }
+          function touchend(e) {
+            var touch = e.changedTouches[0]
+            var pageX = touch.pageX
+            var pageY = touch.pageY
+            var elements = document.elementsFromPoint(pageX, pageY)
+            var dropzone = dropzones.find(dropzone => {
+              return elements.includes(dropzone)
+            })
+            if (dropzone) {
+              var prevChild = dropzone.firstElementChild
+              if (prevChild) {
+                touchEl.parentElement.insertBefore(prevChild, touchEl)
+              }
+              dropzone.appendChild(touchEl)
+              drop()
+            }
+            reset()
+          }
+
+        }
+        function reset() {
+          Object.assign(touchEl.style, {
+            left: touchEl.left,
+            top: touchEl.top
+          })
+          touchEl = false
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

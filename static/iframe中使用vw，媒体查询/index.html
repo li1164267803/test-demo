@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .parent {
+        border: 1px solid #000;
+      }
+      /* ipad pro */
+      @media screen and (max-width: 1024px) {
+        body {
+          background-color: #ff00ff;
+          font-size: 1.4rem;
+        }
+      }
+      /* ipad */
+      @media screen and (max-width: 768px) {
+        body {
+          background-color: green;
+          font-size: 1.3rem;
+        }
+      }
+      /* iphone6 7 8 plus */
+      @media screen and (max-width: 414px) {
+        body {
+          background-color: blue;
+          font-size: 1.25rem;
+        }
+      }
+      .son iframe {
+        width: 80vw;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="parent">
+        我是父级元素
+      </div>
+      <div class="son">
+        <iframe src="./iframe.html" frameborder="0" scrolling="no"></iframe>
+      </div>
+    </div>
+  </body>
+  <script>
+    let parent = document.querySelector(".parent");
+    console.log(parent.offsetWidth);
+    console.log(window.innerWidth);
+  </script>
+</html>

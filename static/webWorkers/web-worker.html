@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>webworkers--calculate</title>
+  </head>
+
+  <body>
+    <input id="num" name="num" type="text" />
+    <button onclick="calculate()">计算</button><br />
+    <div id="result" style="color:red;"></div>
+    <div id="time" style="color:red;"></div>
+    <!-- 引用外部的worker.js -->
+    <script id="worker2" type="text/javascript" src="worker.js"></script>
+    <!-- 引用同一页面得worker.js -->
+    <script id="worker" type="app/worker">
+      onmessage = function (event) {
+          console.log(event,'onmessage_event')
+          let num = event.data;
+          let result = 0;
+          for (let i = 0; i < num; i++) {
+              result += i;
+          }
+          postMessage(result);
+      };
+    </script>
+    <script type="text/javascript">
+      //   let blob = new Blob([document.querySelector("#worker").textContent]);
+      let blob = new Blob([document.querySelector("#worker2").innerHTML]);
+      let url = window.URL.createObjectURL(blob);
+      let worker = new Worker(url);
+      //   let worker = new Worker("worker.js");
+      let data1 = 0;
+      let data2 = 0;
+      worker.onmessage = function(event) {
+        console.log(event, "event");
+        let data = event.data;
+        data2 = new Date().getTime();
+        document.getElementById("result").innerHTML = "计算结果：" + data;
+        document.getElementById("time").innerHTML =
+          "workers 耗时：" + (data2 - data1) + "ms";
+      };
+
+      function calculate() {
+        data1 = new Date().getTime();
+        let num = document.getElementById("num").value;
+        let val = parseInt(num, 10);
+        worker.postMessage(val);
+      }
+    </script>
+  </body>
+</html>

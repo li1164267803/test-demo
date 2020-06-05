@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="main" style="width: 600px; height: 400px;"></div>
+    <script src="./echarts.js"></script>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById("main"), null, {
+        renderer: "svg",
+      });
+      var weatherIcons = {
+        Sunny: "./dianzhan.png",
+      };
+      var data = [
+        {
+          name: "Apples",
+          value: 70,
+        },
+        {
+          name: "Strawberries",
+          value: 68,
+        },
+        {
+          name: "Bananas",
+          value: 48,
+        },
+        {
+          name: "Oranges",
+          value: 40,
+        },
+        {
+          name: "Pears",
+          value: 32,
+        },
+        {
+          name: "Pineapples",
+          value: 27,
+        },
+        {
+          name: "Grapes",
+          value: 18,
+        },
+      ];
+      // 指定图表的配置项和数据
+      option = {
+        title: [
+          {
+            text: "Pie label alignTo",
+          },
+        ],
+        series: [
+          {
+            type: "pie",
+            data: data,
+            animation: false,
+            label: {
+              position: "outer",
+              alignTo: "none",
+              bleedMargin: 5,
+              formatter({ data }) {
+                return data.name + ":" + data.value;
+              },
+              //   formatter: ["{title|{b}}{Sunny|}"].join(""),
+              rich: {
+                title: {
+                  align: "left",
+                  borderColor: "red",
+                  borderWidth: 1,
+                },
+                Sunny: {
+                  height: 30,
+                  align: "left",
+                  // lineHeight: 30,
+                  verticalAlign: "bottom",
+                  borderColor: "red",
+                  borderWidth: 1,
+                  padding: [0, 0, 0, 0],
+                  backgroundColor: {
+                    image: weatherIcons.Sunny,
+                  },
+                },
+                value: {
+                  width: 20,
+                  padding: [0, 20, 0, 30],
+                  align: "left",
+                },
+              },
+            },
+          },
+        ],
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+      document.querySelector("#main").addEventListener("click", function (e) {
+        var target = e.target;
+        if (target.tagName === "tspan") {
+          var textContent = target.textContent;
+          if (~textContent.indexOf("Apples")) {
+            console.log("调用全对");
+          } else if (~textContent.indexOf("Strawberries")) {
+            let div = document.createElement("div");
+            let image = document.createElementNS("http://www.w3.org/2000/svg","image");
+            image.setAttributeNS("http://www.w3.org/1999/xlink","src","./dianzhan.png")
+            image.setAttribute('x', '350');
+            image.setAttribute('y', '150');
+            image.setAttribute('width', '100');
+            image.setAttribute('height', '103');
+            // img.src = "./dianzhan.png";
+            /* img['xlink:href'] = "./dian.svg";
+           let asdasdasdasd = '<image xlink:href="./dian.svg" x="0" y="0" height="50px" width="50px"/>'
+            var svgNS = 'http://www.w3.org/2000/svg';
+
+            let oImg = document.createElementNS(svgNS, 'image');
+            // oImg.setAttribute('xlink:href', '../img/main.png');
+            oImg.href.baseVal = "./dianzhan.png";
+            oImg.setAttribute('x', '350');
+            oImg.setAttribute('y', '150');
+            oImg.setAttribute('width', '100'); */
+            //oImg.setAttribute('height', '103');
+
+            // target.innerHTML = "一个div";
+            // target.appendChild(div);
+            // target.appendChild(img);
+            target.appendChild(image);
+            //console.log("调用做完",oImg);
+          }
+        }
+      });
+      
+    //   let asdasd = document.getElementsByTagName("tspan");
+    //   console.log(asdasd, typeof asdasd, asdasd[0]);
+    //   let img = document.createElement("img");
+    //   console.log(img, "img");
+
+    //   img.src = "./dianzhan.png";
+    //   Object.values(asdasd).forEach((v) => {
+    //     //   v.appendChild(img)
+    //     v.innerHtml = "asdasdadasd";
+    //   });
+    //   console.log(asdasd, "asdasd");
+    </script>
+  </body>
+</html>

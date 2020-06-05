@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>webworkers--calculate</title>
+  </head>
+
+  <body>
+    <input id="num" name="num" type="text" />
+    <button onclick="calculate()">计算</button><br />
+    <div id="result" style="color:red;"></div>
+    <div id="time" style="color:red;"></div>
+
+    <script type="text/javascript">
+      function calculate() {
+        let data1 = new Date().getTime();
+        let num = document.getElementById("num").value;
+        let val = parseInt(num, 10);
+        let result = 0;
+        for (let i = 0; i < num; i++) {
+          result += i;
+        }
+        let data2 = new Date().getTime();
+        document.getElementById("result").innerHTML = "计算结果：" + result;
+        document.getElementById("time").innerHTML =
+          "普通 耗时：" + (data2 - data1) + "ms";
+      }
+    </script>
+  </body>
+</html>

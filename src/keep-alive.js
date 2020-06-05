@@ -113,7 +113,6 @@ export default {
     const vnode = getFirstComponentChild(slot)
     const {data = {}} = vnode || {}
     const {key:key2} = data
-    console.log(vnode,'vnode');
     
     const componentOptions = vnode && vnode.componentOptions
     if (componentOptions) {
