@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    .draggable {
+      display: inline-block;
+      width: 200px;
+      height: 20px;
+      padding: 10px 2px;
+      margin: 10px;
+      border-radius: 4px;
+      text-align: center;
+      background: lightblue;
+    }
+
+    .dropzone {
+      position: absolute;
+      width: 200px;
+      height: 40px;
+      background: blueviolet;
+      margin-bottom: 10px;
+    }
+
+    .dropzone:nth-child(1) {
+      top: 300px;
+    }
+
+    .dropzone:nth-child(2) {
+      top: 350px;
+    }
+
+    .dropzone:nth-child(3) {
+      top: 400px;
+    }
+
+    .dropzone:nth-child(4) {
+      top: 450px;
+    }
+
+    .abs {
+      position: fixed;
+      z-index: 1;
+    }
+
+    .options-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .dropzone .draggable {
+      margin: 0;
+      position: static;
+    }
+  </style>
+  <div id="optionsContainer" class="options-container">
+
+  </div>
+  <div id="dropzoneContainer">
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+    <div class="dropzone"></div>
+  </div>
+  <script>
+    /**
+    * 1.判断是移动端还是pc决定使用那种方法
+    * 2.要以参数的形式传入到方法中
+    */
+
+    var options = [{
+      code: "A",
+      value: '被拖拽的元素1'
+    }, {
+      code: "B",
+      value: '被拖拽的元素2'
+    }, {
+      code: "C",
+      value: '被拖拽的元素3'
+    }, {
+      code: "D",
+      value: '被拖拽的元素4'
+    }, {
+      code: "E",
+      value: '被拖拽的元素5'
+    }, {
+      code: "F",
+      value: '被拖拽的元素6'
+    }, {
+      code: "G",
+      value: '被拖拽的元素7'
+    }, {
+      code: "H",
+      value: '被拖拽的元素8'
+    }, {
+      code: "I",
+      value: '被拖拽的元素9'
+    }, {
+      code: "J",
+      value: '被拖拽的元素10'
+    }, {
+      code: "K",
+      value: '被拖拽的元素11'
+    }]
+    init(options)
+    function init(options) {
+      var optionsContainer = document.querySelector('#optionsContainer')
+      var dropzoneContainer = document.querySelector("#dropzoneContainer")
+      var fragments = options.reduce((fragment, option) => {
+        var draggable = document.createElement('div')
+        draggable.classList.add('draggable')
+        draggable.code = option.code || ''
+        draggable.innerHTML = option.value
+        draggable.draggable = true
+        fragment.appendChild(draggable)
+        return fragment
+      }, document.createDocumentFragment())
+      optionsContainer.appendChild(fragments)
+      var draggables = document.querySelectorAll('.draggable')
+      var dropzones = document.querySelectorAll('.dropzone')
+      draggables.forEach(draggable => {
+        var { x, y } = draggable.getBoundingClientRect()
+        draggable.top = y + 'px'
+        draggable.left = x + 'px'
+        Object.assign(draggable.style, {
+          top: draggable.top,
+          left: draggable.left
+        })
+      })
+      draggables.forEach(draggable => {
+        draggable.classList.add('abs')
+      })
+      var options = {
+        dropzones: Array.from(dropzones),
+        draggables: Array.from(draggables),
+        drop() {
+          var draggableds = dropzoneContainer.querySelectorAll('.draggable')
+          draggableds = Array.from(draggableds)
+          var codes = draggableds.reduce((result, draggabled) => {
+            return result + draggabled.code
+          }, '')
+          console.log(codes)
+        }
+      }
+      dropFn(options)
+      function dropFn({ dropzones, draggables, drop = () => { } }) {
+        dropzones = Array.from(dropzones)
+        draggables = Array.from(draggables)
+        var touchEl = false
+        if ('ondrsag' in document) {
+          draggables.forEach(_dropPC)
+          function _dropPC(draggable) {
+            draggable.addEventListener('dragstart', drag)
+          }
+          dropzones.forEach(dropzone => {
+            dropzone.addEventListener('dragover', dragover)
+            dropzone.addEventListener('drop', ondrop)
+          })
+          function drag() {
+            touchEl = this
+          }
+          function dragover(e) {
+            e.preventDefault();
+          }
+          function ondrop(e) {
+            e.preventDefault();
+            var prevChild = this.firstElementChild
+            if (prevChild) {
+              touchEl.parentElement.insertBefore(prevChild, touchEl)
+            }
+            this.appendChild(touchEl);
+            reset()
+            drop()
+          }
+        } else {
+          draggables.forEach(_dropMobile)
+          function _dropMobile(draggable) {
+            draggable.addEventListener('touchstart', touchstart)
+            draggable.addEventListener('touchend', touchend)
+            draggable.addEventListener('touchcancel', reset)
+          }
+          document.addEventListener('touchmove', touchmove)
+
+          function touchstart() {
+            touchEl = this
+          }
+          function touchmove(e) {
+            if (touchEl) {
+              var touch = e.changedTouches[0]
+              var pageX = touch.pageX
+              var pageY = touch.pageY
+              var { width, height } = touchEl.getBoundingClientRect()
+              Object.assign(touchEl.style, {
+                left: pageX - width / 2 + 'px',
+                top: pageY - height / 2 + 'px'
+              })
+            }
+          }
+          function touchend(e) {
+            var touch = e.changedTouches[0]
+            var pageX = touch.pageX
+            var pageY = touch.pageY
+            var elements = document.elementsFromPoint(pageX, pageY)
+            var dropzone = dropzones.find(dropzone => {
+              return elements.includes(dropzone)
+            })
+            if (dropzone) {
+              var prevChild = dropzone.firstElementChild
+              if (prevChild) {
+                touchEl.parentElement.insertBefore(prevChild, touchEl)
+              }
+              dropzone.appendChild(touchEl)
+              drop()
+            }
+            reset()
+          }
+
+        }
+        function reset() {
+          Object.assign(touchEl.style, {
+            left: touchEl.left,
+            top: touchEl.top
+          })
+          touchEl = false
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

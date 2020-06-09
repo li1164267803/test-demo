@@ -70,6 +70,11 @@ const routes = [
     name: "echarts",
     component: () => import("../views/echarts"),
   },
+  {
+    path: "/springBox",
+    name: "springBox",
+    component: () => import("../views/springBox"),
+  },
 ];
 
 const router = new VueRouter({

@@ -7,8 +7,12 @@ import "view-design/dist/styles/iview.css";
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+import Toast from './components/common/Toast/toast.js';
+import ToastQingke from './components/common/ToastQingke/toastQingke.js';
 
+Vue.use(ElementUI);
+Vue.use(Toast);
+Vue.use(ToastQingke);
 Vue.use(ViewUI);
 import KeepAlive from './keep-alive'
 Vue.component(KeepAlive.name, KeepAlive)

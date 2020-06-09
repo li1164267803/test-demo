@@ -12,6 +12,7 @@
       <router-link to="/webwork" tag="button">webwork</router-link>
       <router-link to="/awakenAPP" tag="button">唤醒电脑上APP</router-link>
       <router-link to="/echarts" tag="button">echarts</router-link>
+      <router-link to="/springBox" tag="button">使用extend自定义弹框</router-link>
     </div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
       <router-view />

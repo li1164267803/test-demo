@@ -26,6 +26,21 @@
     -webkit-box-orient: vertical; // 必选
   }
 }
+
+.transition-box {
+    div {
+        width: 200px;
+        height: 100px;
+        background-color: pink;
+        position: relative;
+        left: 0;
+        transition: all 3s;
+
+    }
+    .flag {
+        left: 300px;
+    }
+}
 </style>
 
 <template>
@@ -43,6 +58,11 @@
       <showTipsIview :title="title1" class="item-title"></showTipsIview>
       <showTipsIview :title="title" class="item-title"></showTipsIview>
     </div>
+
+    <div class="transition-box">
+        <div  :class="flag?'flag':''" >asdasd</div>
+        <button @click="transitionBtn">改变transition过度</button>
+    </div>
   </div>
 </template>
 
@@ -55,6 +75,7 @@ export default {
   components: { showTipsAntd, showTipsIview, AButton: Button },
   data() {
     return {
+        flag: false,
       title1: "文字少滑入不显示tost",
       title:
         "一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个一个汉子一个汉子一个汉子一个汉子一个一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子一个汉子"
@@ -62,6 +83,11 @@ export default {
   },
   activated() {
     console.log("缓存的划入");
-  }
+  },
+  methods: {
+      transitionBtn(){
+          this.flag = !this.flag
+      }
+  },
 };
 </script>
