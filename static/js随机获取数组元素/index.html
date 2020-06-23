@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let items = ['1', '2', '4', '5', '6', '7', '8', '9', '10'];
+        let arr = []
+        for (let index = 0; index < 3; index++) {
+            let item = items[Math.floor(Math.random() * items.length)];
+            arr.push(item)
+        }
+        console.log(arr, 'arr', randomSort(items));
+
+        /*
+            用Javascript实现乱序函数randomSort(array)函数，输出排序后的函数。如[1,2,3,4,5]，输出[3,2,4,5,1]。要求N次以内不重复。
+        */
+        function randomSort(array) {
+            var x = array.sort(function (a, b) {
+                return Math.random() > 0.5 ? 1 : -1;
+            });
+            return x;
+        }
+    </script>
+</body>
+
+</html>

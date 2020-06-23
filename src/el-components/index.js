@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Message from './message'
+import Progress from './progress'
 import Element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
 import Cookies from 'js-cookie'
 const service = Element.Loading.service
 Element.Loading.service = function(options = { lock: true, fullscreen: true,
@@ -11,14 +13,27 @@ Element.Loading.service = function(options = { lock: true, fullscreen: true,
 Vue.use(Element, {
   size: Cookies.get('size') || 'mini' // set element-ui default size
 })
+
+// const requireComponent = require.context(
+//   // 其组件目录的相对路径
+//   './',
+//   // 是否查询其子目录
+//   false,
+//   // 匹配基础组件文件名的正则表达式
+//   /El[A-Z]\w+\.(vue|js)$/
+// )
+
 const requireComponent = require.context(
-  // 其组件目录的相对路径
-  './',
-  // 是否查询其子目录
-  false,
-  // 匹配基础组件文件名的正则表达式
-  /El[A-Z]\w+\.(vue|js)$/
-)
+    // 其组件目录的相对路径
+    './',
+    // 是否查询其子目录
+    false,
+    // 匹配基础组件文件名的正则表达式
+    /El[A-Z]\w+\.(vue|js)$/
+  )
+
+
+// console.log(requireComponent.keys(),'requireComponent');
 
 requireComponent.keys().forEach(fileName => {
   // 获取组件配置
@@ -38,3 +53,6 @@ requireComponent.keys().forEach(fileName => {
   )
 })
 Vue.prototype.$message = Message
+
+// 重新注册progress 改写了源码
+Vue.use(Progress)

@@ -75,7 +75,42 @@ const routes = [
     name: "springBox",
     component: () => import("../views/springBox"),
   },
+  {
+    path: "/progress",
+    name: "progress",
+    component: () => import("../views/progress")
+  },
+  {
+    path: "/routerQuery/one",
+    name: "routerQueryOne",
+    component: () => import("../views/routerQuery/one")
+  },
+  {
+    path: "/routerQuery/two",
+    name: "routerQueryTwo",
+    component: () => import("../views/routerQuery/two")
+  },{
+    path: "/SSE",
+    name: "SSE",
+    component: () => import("../views/SSE")
+  },{
+    path: "/throttle",
+    name: "throttle",
+    component: () => import("../views/throttle")
+  },
 ];
+
+const props = (route) => {
+    const { query, params } = route
+    return { query, params }
+}
+
+routes.forEach(route => {
+    route.props = props;
+    (route.children || []).forEach(child => {
+      child.props = props
+    })
+})
 
 const router = new VueRouter({
   // mode: "history",

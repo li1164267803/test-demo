@@ -1,11 +1,10 @@
 <template>
   <div>
     <!-- <el-table @forward-ref="ref=>tableRef=ref" :data="tableData" style="width: 100%"> -->
-    <el-table ref="reference" :data="tableData" style="width: 100%">
+    <el-table ref="reference" height="250" :data="tableData" style="width: 100%" :header-cell-style="{background:'#303548'}" row-class-name="warning-row">
       <el-table-column prop="date" label="日期" width="180"></el-table-column>
       <el-table-column prop="name" label="姓名" width="180"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
-
       <el-table-column
         prop="address"
         label="地址"
@@ -39,6 +38,27 @@ export default {
           date: "2016-05-03",
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄"
+        }        ,
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
+        }
+        ,
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
         }
       ]
     };
@@ -63,6 +83,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.el-table /deep/ .warning-row {
+    background: #24293D;
+  }
 /deep/ .has-gutter {
   height: 30px;
   color: red;

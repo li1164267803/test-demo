@@ -13,9 +13,14 @@
       <router-link to="/awakenAPP" tag="button">唤醒电脑上APP</router-link>
       <router-link to="/echarts" tag="button">echarts</router-link>
       <router-link to="/springBox" tag="button">使用extend自定义弹框</router-link>
+      <router-link to="/progress" tag="button">使用progress进度条</router-link>
+      <router-link to="/routerQuery/one" tag="button">页面query和params传值解耦</router-link>
+      <router-link to="/SSE" tag="button">SSE服务链接</router-link>
+      <router-link to="/throttle" tag="button">防抖节流</router-link>
     </div>
+    <div>--------------------------------------------分割线----------------------------------------------------</div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
-      <router-view />
+        <router-view />
     </keep-alive>
   </div>
 </template>
@@ -24,7 +29,7 @@ export default {
   data() {
     return {
       cache: Object.create(null),
-      includeKey: ["/sync"]
+      includeKey: ["/sync"],
     };
   },
   computed: {

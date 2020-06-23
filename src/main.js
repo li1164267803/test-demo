@@ -5,12 +5,17 @@ import store from "./store";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+// import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
 import Toast from './components/common/Toast/toast.js';
 import ToastQingke from './components/common/ToastQingke/toastQingke.js';
 
-Vue.use(ElementUI);
+import '@/assets/styles/index.less' // 全局 css
+
+
+// Vue.use(ElementUI);
+import './icons' // icon
+
 Vue.use(Toast);
 Vue.use(ToastQingke);
 Vue.use(ViewUI);
