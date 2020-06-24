@@ -17,6 +17,7 @@
       <router-link to="/routerQuery/one" tag="button">页面query和params传值解耦</router-link>
       <router-link to="/SSE" tag="button">SSE服务链接</router-link>
       <router-link to="/throttle" tag="button">防抖节流</router-link>
+      <router-link to="/svga" tag="button">SVGA动画和canvas截取</router-link>
     </div>
     <div>--------------------------------------------分割线----------------------------------------------------</div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
