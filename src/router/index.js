@@ -97,11 +97,11 @@ const routes = [
     path: "/throttle",
     name: "throttle",
     component: () => import("../views/throttle")
-  },,{
+  },{
     path: "/svga",
     name: "svga",
     component: () => import("../views/SVGA")
-  },
+  }
 ];
 
 const props = (route) => {

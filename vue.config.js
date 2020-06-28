@@ -4,6 +4,14 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
+    devServer: {
+        proxy: {
+          '/svga': {  // 处理svga用服务地址图片的跨域问题
+            target: 'https://live-test.puxinwangxiao.com/',
+            changeOrigin: true, // 是否跨域
+          }
+        }
+    },
     configureWebpack: config => {
         config.module.rules.push({
             test: /\.worker.js$/,
