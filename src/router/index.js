@@ -101,7 +101,11 @@ const routes = [
     path: "/svga",
     name: "svga",
     component: () => import("../views/SVGA")
-  }
+  },{
+    path: "/markdown",
+    name: "markdown",
+    component: () => import("../views/markdown")
+  },
 ];
 
 const props = (route) => {
