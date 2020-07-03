@@ -6,19 +6,20 @@
     <input v-bind:value="arr[1]" @input="shijian" />
     <input v-model="something" />
     <Button @click="onButton">按钮</Button>
-
+    <hr />
     <div>
       自定义实现v-model获取数据
-      <BrugervalgtInput v-model="inputVal"></BrugervalgtInput>
-      <div>输出的内容：{{inputVal}}</div>
+      <modelComponent v-model="inputVal"></modelComponent>
+      <div>输出的内容：{{inputVal}} typeof: {{typeof inputVal}}</div>
     </div>
+    <hr />
   </div>
 </template>
 
 <script>
-import BrugervalgtInput from "./../components/BrugervalgtInput";
+import modelComponent from "./components/index-input";
 export default {
-  components: { BrugervalgtInput },
+  components: { modelComponent },
   data() {
     return {
       something: "",

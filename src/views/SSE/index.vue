@@ -43,7 +43,7 @@ export default {
         //     const service = await axios.create({
         //       baseURL: 'http://192.168.2.135:8103/server/disconnect?classId=2&chapterId=2', // api的base_url
         //       timeout: 5000 // 请求超时时间
-        //     })
+        //     })()
         //     console.log('关闭请求', service)
         //   } catch (error) {
         //   }

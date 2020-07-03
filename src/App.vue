@@ -18,11 +18,13 @@
       <router-link to="/SSE" tag="button">SSE服务链接</router-link>
       <router-link to="/throttle" tag="button">防抖节流</router-link>
       <router-link to="/svga" tag="button">SVGA动画和canvas截取</router-link>
-      <router-link to="/markdown" tag="button">markdown插件</router-link>
+      <router-link to="/markdown" tag="button">markdown插件 mavon-editor</router-link>
+      <router-link to="/tuieditor" tag="button">tuieditor MD组件</router-link>
+      <router-link to="/hook" tag="button">hook监听子组件生命周期的变化</router-link>
     </div>
     <div>--------------------------------------------分割线----------------------------------------------------</div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
-        <router-view />
+      <router-view />
     </keep-alive>
   </div>
 </template>
@@ -31,7 +33,7 @@ export default {
   data() {
     return {
       cache: Object.create(null),
-      includeKey: ["/sync"],
+      includeKey: ["/sync"]
     };
   },
   computed: {

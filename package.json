@@ -9,6 +9,7 @@
     "preview": "node build/index.js --preview"
   },
   "dependencies": {
+    "@toast-ui/vue-editor": "^2.2.0",
     "ant-design-vue": "^1.6.2",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
@@ -19,6 +20,7 @@
     "jszip": "^3.4.0",
     "mavon-editor": "^2.9.0",
     "svgaplayerweb": "^2.3.1",
+    "tui-editor": "^1.4.10",
     "view-design": "^4.2.0",
     "vue": "^2.6.10",
     "vue-router": "^3.3.2",

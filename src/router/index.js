@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/model",
     name: "model",
-    component: () => import("../views/model.vue"),
+    component: () => import("../views/model/index.vue"),
   },
   {
     path: "/hove",
@@ -105,7 +105,15 @@ const routes = [
     path: "/markdown",
     name: "markdown",
     component: () => import("../views/markdown")
-  },
+  },{
+    path: "/tuieditor",
+    name: "tuieditor",
+    component: () => import("../views/tuieditor")
+  },{
+    path: "/hook",
+    name: "hook",
+    component: () => import("../views/hook")
+  }
 ];
 
 const props = (route) => {
