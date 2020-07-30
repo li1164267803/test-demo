@@ -8,7 +8,7 @@
           <div v-show="showClose" class="close-tip" @click="close">
             <span class="tip-num">{{ times }}s</span>
             <span>后将自动关闭</span>
-            <img class="close-btn" src="/img/guanbi.png" />
+            <img class="close-btn" src="/svga/img/guanbi.png" />
           </div>
           <div class="placholder"></div>
         </div>
@@ -33,7 +33,7 @@ export default {
     handelBtn() {
       this.show = !this.show;
       //   this.times = 10;
-      //   this.showClose = true;
+        // this.showClose = true;
     },
     // 裁剪圆形图片
     clipImage(src) {
@@ -63,9 +63,10 @@ export default {
       });
     },
     render() {
+      console.log("render -> render", )
       var player = new SVGA.Player(".placholder");
       var parser = new SVGA.Parser(".placholder"); // 如果你需要支持 IE6+，那么必须把同样的选择器传给 Parser。
-      parser.load("img/byb.svga", videoItem => {
+      parser.load("svga/img/byb1.svga", videoItem => {
           let arr = [];
           let keys = ["first", "second", "third"];
         player.setVideoItem(videoItem)
@@ -92,7 +93,7 @@ export default {
           player.setText(timeObj, `rank_${keys[index]}_time`);
           player.setText(rightObj, `rank_${keys[index]}_right`);
 
-          let p = this.clipImage("img/2.jpeg")
+          let p = this.clipImage("svga/img/2.jpeg")
             .then(data => {
               player.setImage(data, `rank_first_icon`);
             })
@@ -100,7 +101,7 @@ export default {
           arr.push(p);
         }
 
-        player.setImage("img/2.jpeg", `rank_second_icon`);
+        player.setImage("svga/img/2.jpeg", `rank_second_icon`);
 
         Promise.all(arr).then(() => {
           player.startAnimation();

@@ -69,7 +69,7 @@ export default {
       //   parser.load("@/assets/img/byb.svga", videoItem => { // 错误的引入方式，会报错incorrect header check
       //   parser.load("../../assets/img/svga/byb.svga", videoItem => { // 错误的引入方式
       // 使用@ 或者是../的形式都会报错，图片放在static中也是会报错，我的解决办法是放在了public的img文件夹中
-      parser.load("img/byb.svga", videoItem => {
+      parser.load("svga/img/byb.svga", videoItem => {
         let arr = [];
         let keys = ["first", "second", "third"];
         player.setVideoItem(videoItem);
@@ -95,14 +95,14 @@ export default {
           player.setText(nameObj, `rank_${keys[index]}_name`);
           player.setText(timeObj, `rank_${keys[index]}_time`);
           player.setText(rightObj, `rank_${keys[index]}_right`);
-          let p = this.clipImage("img/2.jpeg")
+          let p = this.clipImage("svga/img/2.jpeg")
             .then(data => {
               player.setImage(data, `rank_first_icon`); // 裁剪后的图片
             })
             .catch(err => {});
           arr.push(p);
         }
-        player.setImage("img/2.jpeg", `rank_second_icon`); // 未裁剪的图片
+        player.setImage("svga/img/2.jpeg", `rank_second_icon`); // 未裁剪的图片
         Promise.all(arr).then(() => {
           // 所有的图片裁剪完毕，加载后走的逻辑
           player.startAnimation();
