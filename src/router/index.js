@@ -116,6 +116,10 @@ const routes = [{
     path: "/keyup",
     name: "keyup",
     component: () => import("../views/keyup")
+}, {
+    path: "/upload",
+    name: "upload",
+    component: () => import("../views/upload")
 }
 ];
 

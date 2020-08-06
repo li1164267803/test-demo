@@ -22,6 +22,7 @@
       <router-link to="/tuieditor" tag="button">tuieditor MD组件</router-link>
       <router-link to="/hook" tag="button">hook监听子组件生命周期的变化</router-link>
       <router-link to="/keyup" tag="button">监听keyup事件</router-link>
+      <router-link to="/upload" tag="button">upload上传组件</router-link>
     </div>
     <div>--------------------------------------------分割线----------------------------------------------------</div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
