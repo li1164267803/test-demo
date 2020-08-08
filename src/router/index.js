@@ -70,6 +70,11 @@ const routes = [{
     component: () => import("../views/echarts"),
 },
 {
+    path: "/echarts/line",
+    name: "echartsLine",
+    component: () => import("../views/echarts/line"),
+},
+{
     path: "/springBox",
     name: "springBox",
     component: () => import("../views/springBox"),

@@ -12,6 +12,7 @@
       <router-link to="/webwork" tag="button">webwork</router-link>
       <router-link to="/awakenAPP" tag="button">唤醒电脑上APP</router-link>
       <router-link to="/echarts" tag="button">echarts</router-link>
+      <router-link to="/echarts/line" tag="button">echarts折线图</router-link>
       <router-link to="/springBox" tag="button">使用extend自定义弹框</router-link>
       <router-link to="/progress" tag="button">使用progress进度条</router-link>
       <router-link to="/routerQuery/one" tag="button">页面query和params传值解耦</router-link>
