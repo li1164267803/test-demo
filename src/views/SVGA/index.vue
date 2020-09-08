@@ -10,6 +10,7 @@
             <span>后将自动关闭</span>
             <img class="close-btn" src="/svga/img/guanbi.png" />
           </div>
+        <!-- svga容器有的时候需要放在第一个，生成的动画会自动放在第一个div中  无效果的时候注意审查元素-->
           <div class="placholder"></div>
         </div>
       </div>

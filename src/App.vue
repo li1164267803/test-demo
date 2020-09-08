@@ -24,6 +24,7 @@
       <router-link to="/hook" tag="button">hook监听子组件生命周期的变化</router-link>
       <router-link to="/keyup" tag="button">监听keyup事件</router-link>
       <router-link to="/upload" tag="button">upload上传组件</router-link>
+      <router-link to="/drag" tag="button">drag移动弹框</router-link>
     </div>
     <div>--------------------------------------------分割线----------------------------------------------------</div>
     <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
@@ -54,6 +55,7 @@ export default {
 <style lang="less" scoped>
 #app {
   padding: 20px;
+  height: 100%;
   #nav {
       button {
           margin-right: 5px;

@@ -125,6 +125,10 @@ const routes = [{
     path: "/upload",
     name: "upload",
     component: () => import("../views/upload")
+}, {
+    path: "/drag",
+    name: "drag",
+    component: () => import("../views/drag_box")
 }
 ];
 
