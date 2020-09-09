@@ -129,6 +129,10 @@ const routes = [{
     path: "/drag",
     name: "drag",
     component: () => import("../views/drag_box")
+}, {
+    path: "/provide",
+    name: "provide",
+    component: () => import("../views/provide/parent")
 }
 ];
 
