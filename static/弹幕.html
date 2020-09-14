@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .barrage-container {
+            margin-left: 100px;
+            border: 1px solid;
+            width: 800px;
+            height: 600px;
+            position: relative;
+            user-select: none;
+            /* overflow: hidden; */
+        }
+
+        .barrage-item {
+            position: absolute;
+            padding: 10px;
+            cursor: pointer;
+            transition: left 3s;
+        }
+
+        .barrage-pause {
+            z-index: 1;
+            background: chartreuse;
+        }
+    </style>
+    <div id="barrageContainer" class="barrage-container"></div>
+    <button id="add">添加字幕</button>
+    <script>
+        document.querySelector('#add').addEventListener('click', function () {
+            addBarrageItem(('' + Math.random()).slice(-Math.floor(Math.random() * 10)), function (event) {
+                console.log(event.target.textContent)
+            })
+        })
+        let num = 0
+        let asdd = setInterval(function () {
+            num++
+            if (num >= 200) clearInterval(asdd)
+            document.querySelector('#add').click()
+        }, 200)
+        const barrageContainer = document.querySelector('#barrageContainer')
+        const containerWidth = barrageContainer.offsetWidth
+        const containerHeight = barrageContainer.offsetHeight
+        const barrageItems = barrageContainer.getElementsByClassName('barrage-item')
+        function addBarrageItem(text, dblclick) {
+            const barrageItem = document.createElement('div')
+            barrageItem.classList.add('barrage-item')
+            barrageItem.textContent = text
+            barrageContainer.appendChild(barrageItem)
+            const items = Array.from(barrageItems).filter(item => {
+                return item !== barrageItem
+            })
+
+            const lastItems = getLastItems(items)
+            // 获取到需要设置的位置信息
+            const { top, right } = getInsertPos(lastItems, barrageItem)
+            Object.assign(barrageItem.style, {
+                right: right + 'px',
+                top: top + 'px'
+            })
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/Element/animate
+            const animate = barrageItem.animate([
+                { right: right + 'px' }, // 开始动画位置
+                { right: containerWidth + 'px' } // 结束动画位置
+            ], {
+                duration: (containerWidth - right) * 10,
+                fill: 'forwards'
+            })
+            // https://developer.mozilla.org/zh-CN/docs/Web/API/Animation
+            animate.onfinish = function () {
+                // Node.contains()返回的是一个布尔值，来表示传入的节点是否为该节点的后代节点。
+                if (!barrageItem.classList.contains('barrage-pause')) {
+                    barrageContainer.removeChild(barrageItem)
+                }
+            }
+            barrageItem.addEventListener('mouseenter', function () {
+                Object.assign(barrageItem.style, {
+                    left: barrageItem.offsetLeft + 'px',
+                    width: barrageItem.offsetWidth + 'px'
+                })
+                barrageItem.classList.add('barrage-pause')
+            })
+            barrageItem.addEventListener('mouseleave', function () {
+                Object.assign(barrageItem.style, {
+                    left: 'unset'
+                })
+                barrageItem.classList.remove('barrage-pause')
+                if (animate.playState === 'finished') {
+                    barrageContainer.removeChild(barrageItem)
+                }
+            })
+            barrageItem.addEventListener('dblclick', dblclick)
+        }
+        //每一行的最后一个元素,按照从上往下放入数组
+        function getLastItems(items) {
+            const lastItems = []
+            // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+            const hash = items.reduce((result, curr) => { // 返回{}的最后一个元素的数据格式
+                const top = curr.offsetTop
+                result[top] = curr
+                return result
+            }, {})
+            const keys = Object.keys(hash).sort((a, b) => a - b) // 确保排序小到大
+            return keys.map(key => hash[key]) // 返回每一行最后的一个元素，返回[]
+        }
+        //获取该插入的位置
+        function getInsertPos(lastItems, barrageItem) {
+            if (!lastItems.length) {
+                console.log(1111);
+                return {
+                    top: 0,
+                    right: -barrageItem.offsetWidth
+                }
+            }
+            for (let i = 0, len = lastItems.length; i < len; i++) {
+                const lastItem = lastItems[i]
+                // 获取当前行上一个元素的位置，是否超出了容器宽度
+                // rightLen >= 0 未超出 把当前元素添加到当前行
+                const rightLen = getRightLen(lastItem)
+                if (rightLen >= 0) {
+                    return {
+                        top: lastItem.offsetTop,
+                        right: -barrageItem.offsetWidth
+                    }
+                }
+            }
+            // 弹幕超出当前容器行了  另起一行展示
+            const lowestLastItem = lastItems[lastItems.length - 1]
+            const lowestBottomLen = getBottomLen(lowestLastItem)
+            if (lowestBottomLen + barrageItem.offsetHeight <= containerHeight) { // 小于容器的高度
+                return {
+                    top: lowestBottomLen,
+                    right: -barrageItem.offsetWidth
+                }
+            } else { // 弹幕超出容器高度 -> 获取当前距离顶部最近的弹幕元素
+                const nearestLastItem = lastItems.sort((a, b) => { // 从大到小排列
+                    return getRightLen(b) - getRightLen(a)
+                })[0]
+                return {
+                    top: nearestLastItem.offsetTop,
+                    right: getRightLen(barrageItem)
+                }
+            }
+        }
+        function getRightLen(barrageItem) { // 获取元素的left位置
+            return containerWidth - (barrageItem.offsetLeft + barrageItem.offsetWidth)
+        }
+        function getBottomLen(barrageItem) { // 获取元素top位置
+            return barrageItem.offsetTop + barrageItem.offsetHeight
+        }
+    </script>
+</body>
+
+</html>

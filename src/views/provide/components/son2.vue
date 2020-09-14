@@ -5,6 +5,7 @@
     </div>
 </template>
 <script>
+import bus from '@/common/bus';
 export default {
     data() {
         return {
@@ -24,6 +25,7 @@ export default {
     },
     mounted() {
         this.setSunziShili(this)
+        bus.$on('busFun',this.son2Fun)
     },
 }
 </script>

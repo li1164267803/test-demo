@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // https://www.jianshu.com/p/c5190fa99596
+        // https://blog.csdn.net/qq_17613195/article/details/106672915
+        //  obj?.name || "默认"; ?. 中间不能有空格
+
+        let obj = {
+            id: 12345,
+            name: 1
+        };
+        const headerText = obj?.name || "默认";
+        console.log(headerText);
+    </script>
+</body>
+
+</html>

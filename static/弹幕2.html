@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>barrage</title>
+</head>
+
+<body>
+    <style>
+        .barrage-container {
+            margin-left: 100px;
+            border: 1px solid;
+            width: 800px;
+            height: 600px;
+            position: relative;
+            user-select: none;
+        }
+
+        .barrage-item {
+            position: absolute;
+            padding: 10px;
+            cursor: pointer;
+            transition: left 3s;
+        }
+
+        .barrage-pause {
+            z-index: 1;
+            background: chartreuse;
+        }
+    </style>
+    <div id="barrageContainer" class="barrage-container"></div>
+    <button id="add">添加字幕</button>
+    <script>
+        document.querySelector('#add').addEventListener('click', function () {
+            addBarrageItem(('' + Math.random()).slice(-Math.floor(Math.random() * 10)), function (event) {
+                console.log(event.target.textContent)
+            })
+        })
+        setInterval(function () {
+            document.querySelector('#add').click()
+        }, 20)
+        const barrageContainer = document.querySelector('#barrageContainer')
+        const containerWidth = barrageContainer.offsetWidth
+        const containerHeight = barrageContainer.offsetHeight
+        const barrageItems = barrageContainer.getElementsByClassName('barrage-item')
+        function addBarrageItem(text, dblclick) {
+            const barrageItem = document.createElement('div')
+            barrageItem.classList.add('barrage-item')
+            barrageItem.textContent = text
+            barrageContainer.appendChild(barrageItem)
+            const items = Array.from(barrageItems).filter(item => {
+                return item !== barrageItem
+            })
+            const lastItems = getLastItems(items)
+            const { top, right } = getInsertPos(lastItems, barrageItem)
+            Object.assign(barrageItem.style, {
+                right: right + 'px',
+                top: top + 'px'
+            })
+            const animate = barrageItem.animate([
+                { right: right + 'px' },
+                { right: containerWidth + 'px' }
+            ], {
+                duration: (containerWidth - right) * 10,
+                fill: 'forwards'
+            })
+            animate.onfinish = function () {
+                if (!barrageItem.classList.contains('barrage-pause')) {
+                    barrageContainer.removeChild(barrageItem)
+                }
+            }
+            barrageItem.addEventListener('mouseenter', function () {
+                console.log('mouseenter');
+                Object.assign(barrageItem.style, {
+                    left: barrageItem.offsetLeft + 'px',
+                    width: barrageItem.offsetWidth + 'px'
+                })
+                barrageItem.classList.add('barrage-pause')
+            })
+            barrageItem.addEventListener('mouseleave', function () {
+                Object.assign(barrageItem.style, {
+                    left: 'unset'
+                })
+                barrageItem.classList.remove('barrage-pause')
+                if (animate.playState === 'finished') {
+                    barrageContainer.removeChild(barrageItem)
+                }
+            })
+            barrageItem.addEventListener('dblclick', dblclick)
+        }
+        //每一行的最后一个元素,按照从上往下放入数组
+        function getLastItems(items) {
+            const lastItems = []
+            const hash = items.reduce((result, curr) => {
+                const top = curr.offsetTop
+                result[top] = curr
+                return result
+            }, {})
+            const keys = Object.keys(hash).sort((a, b) => a - b)
+            return keys.map(key => hash[key])
+        }
+        //获取该插入的位置
+        function getInsertPos(lastItems, barrageItem) {
+            if (!lastItems.length) {
+                return {
+                    top: 0,
+                    right: -barrageItem.offsetWidth
+                }
+            }
+            for (let i = 0, len = lastItems.length; i < len; i++) {
+                const lastItem = lastItems[i]
+                const rightLen = getRightLen(lastItem)
+                if (rightLen >= 0) {
+                    return {
+                        top: lastItem.offsetTop,
+                        right: -barrageItem.offsetWidth
+                    }
+                }
+            }
+            const lowestLastItem = lastItems[lastItems.length - 1]
+            const lowestBottomLen = getBottomLen(lowestLastItem)
+            if (lowestBottomLen + barrageItem.offsetHeight <= containerHeight) {
+                return {
+                    top: lowestBottomLen,
+                    right: -barrageItem.offsetWidth
+                }
+            }
+            const nearestLastItem = lastItems.sort((a, b) => {
+                return getRightLen(b) - getRightLen(a)
+            })[0]
+            return {
+                top: nearestLastItem.offsetTop,
+                right: getRightLen(barrageItem)
+            }
+        }
+        function getRightLen(barrageItem) {
+            return containerWidth - (barrageItem.offsetLeft + barrageItem.offsetWidth)
+        }
+        function getBottomLen(barrageItem) {
+            return barrageItem.offsetTop + barrageItem.offsetHeight
+        }
+    </script>
+</body>
+
+</html>
