@@ -48,3 +48,13 @@ export default {
 ```
 
 比如路由 query 传参一个 id 这时候可以在模块中直接使用`this.query.id`来获取
+
+### router-view 嵌套中使用 keep-live
+
+<!-- 关于项目中有两层router-view嵌套时，使用keep-live的另一种方法,在route路由空把需要缓存的路由，添加一个keepAlive，根据keepAlive去判断是否需要缓存 -->
+<div>
+    <keep-alive>
+        <router-view :key="key" v-if="$route.meta.keepAlive" />
+    </keep-alive>
+    <router-view :key="key" v-if="!$route.meta.keepAlive" />
+</div>

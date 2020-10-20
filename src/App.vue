@@ -26,11 +26,15 @@
       <router-link to="/upload" tag="button">upload上传组件</router-link>
       <router-link to="/drag" tag="button">drag移动弹框</router-link>
       <router-link to="/provide" tag="button">provide父组件调用孙子组件的方法-bus事件总线</router-link>
+      <router-link to="/barrage" tag="button">弹幕功能 可添加点击事件</router-link>
+      <router-link to="/A-Barrage" tag="button">A-Barrage弹幕插件可添加事件</router-link>
     </div>
-    <div>--------------------------------------------分割线----------------------------------------------------</div>
-    <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
-      <router-view />
-    </keep-alive>
+    <div id="content-box">
+      <div>--------------------------------------------分割线----------------------------------------------------</div>
+      <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
+        <router-view />
+      </keep-alive>
+    </div>
   </div>
 </template>
 <script>
@@ -38,19 +42,19 @@ export default {
   data() {
     return {
       cache: Object.create(null),
-      includeKey: ["/sync"]
+      includeKey: ["/sync"],
     };
   },
   computed: {
     key() {
       return this.$route.fullPath;
-    }
+    },
   },
   methods: {
     cachedViews() {
       return ["index"];
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -58,9 +62,12 @@ export default {
   padding: 20px;
   height: 100%;
   #nav {
-      button {
-          margin-right: 5px;
-      }
+    button {
+      margin-right: 5px;
+    }
+  }
+  #content-box {
+    position: relative;
   }
 }
 </style>

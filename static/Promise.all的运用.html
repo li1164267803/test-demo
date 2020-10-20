@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let idList = [1, 5, 12, 49]
+    let arr = []
+    let rejectArr = []
+    idList.forEach((v, index) => {
+        let p = new Promise((resolve, reject) => {
+            if (true) {
+                resolve()
+            } else {
+                rejectArr.push(v)
+                reject()
+            }
+        })
+        arr.push(p)
+    });
+
+    Promise.all(arr).then((result) => {
+        console.log('全部删除成功');
+    }).catch((err) => {
+        console.log(rejectArr.length + '个失败', '失败为：' + rejectArr);
+    });
+</script>
+
+</html>
