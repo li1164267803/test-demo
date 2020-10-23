@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function clone(o) {
+            // 判断拷贝的要进行深拷贝的是数组还是对象，是数组的话进行数组拷贝，对象的话进行对象拷贝
+            var temp = Array.isArray(obj) ? [] : {};
+            for (var k in o) {
+                if (Object.prototype.hasOwnProperty.call(o, k)) { // 指示对象自身属性中是否具有指定的属性
+                    if (typeof o[k] == 'object') {
+                        temp[k] = clone(o[k]);
+                    } else temp[k] = o[k];
+                }
+            }
+            return temp;
+        }
+
+        function copy(obj) {
+            let newobj = null;   //声明一个变量用来储存拷贝之后的内容
+            //判断数据类型是否是复杂类型，如果是则调用自己，再次循环，如果不是，直接赋值即可，
+            //由于null不可以循环但类型又是object，所以这个需要对null进行判断
+            if (typeof (obj) == 'object' && obj !== null) {
+                //声明一个变量用以储存拷贝出来的值,根据参数的具体数据类型声明不同的类型来储存
+                newobj = obj instanceof Array ? [] : {};
+                //循环obj 中的每一项，如果里面还有复杂数据类型，则直接利用递归再次调用copy函数
+                for (var i in obj) {
+                    newobj[i] = copy(obj[i])
+                }
+            } else {
+                newobj = obj
+            }
+            return newobj;    //函数必须有返回值，否则结构为undefined
+        }
+    </script>
+</body>
+
+</html>

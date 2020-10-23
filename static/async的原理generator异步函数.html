@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async的原理generator异步函数</title>
+</head>
+
+<body>
+    <script>
+        // http://www.ruanyifeng.com/blog/2015/05/async.html
+        function test(arg) {
+            return new Promise(function (resolve, reject) {
+                resolve(arg)
+            })
+        }
+        function* generator() {
+            var a = yield test('a')
+            console.log(a)
+            var b = yield test('b')
+            console.log(b)
+        }
+        function co(generator) {
+            var gen = generator()
+            var next = (data) => {
+                var { done, value } = gen.next(data)
+                if (done) {
+                    return value
+                } else {
+                    value.then(function (data) {
+                        next(data)
+                    })
+                }
+            }
+            next()
+        }
+        co(generator)
+    </script>
+</body>
+
+</html>
