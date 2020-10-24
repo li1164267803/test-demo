@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重写localStorage</title>
+</head>
+
+<body>
+    <h3>重写localStorage</h3>
+    <script>
+        rewriteLocalStorage()
+        // key value 过期时间
+        localStorage.setItem('onlinePeopleNum', 50, 1000)
+        localStorage.setItem('onlinePeopleNum2', 590, 10000)
+        setTimeout(() => {
+            console.log(5555555, localStorage.getItem('onlinePeopleNum'));
+        }, 3000);
+        /**
+         * 重写localStorage
+         */
+        function rewriteLocalStorage() {
+            if (!window.__rewrite__localStorage) {
+                Object.assign(window, {
+                    __rewrite__localStorage: true,
+                    __localStorage__setItem: localStorage.setItem,
+                    __localStorage__getItem: localStorage.getItem,
+                    __localStorage__removeItem: localStorage.removeItem
+                })
+
+                if (!localStorage.__expires) {
+                    localStorage.__expires = '{}'
+                }
+
+                localStorage.setItem = function (key, value, millisecond) {
+                    if (millisecond) {
+                        let __expires = JSON.parse(localStorage.__expires)
+                        __expires[key] = +Date.now() + millisecond
+                        localStorage.__expires = JSON.stringify(__expires)
+                    }
+                    window.__localStorage__setItem.call(this, key, value)
+                }
+
+                localStorage.getItem = function (key) {
+                    window.clearExpires()
+                    return window.__localStorage__getItem.call(this, key)
+                }
+
+                localStorage.removeItem = function (key) {
+                    let __expires = JSON.parse(localStorage.__expires)
+                    delete __expires[key]
+                    localStorage.__expires = JSON.stringify(__expires)
+                    return window.__localStorage__removeItem.call(this, key)
+                }
+
+                window.clearExpires = function () {
+                    let __expires = JSON.parse(localStorage.__expires)
+                    for (let key in __expires) {
+                        if (__expires[key] < Date.now()) {
+                            localStorage.removeItem(key)
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

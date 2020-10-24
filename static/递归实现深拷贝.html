@@ -38,6 +38,16 @@
             }
             return newobj;    //函数必须有返回值，否则结构为undefined
         }
+
+        // typeof 数组也是会返回object
+        // str 返回的是string str2 返回的确实object
+        // 所以说typeof 并不一定准确 最好的是使用Object.prototype.toString.call(arr)  返回[object Array]
+        let arr = [3, 4]
+        let brr = new Array()
+        let str = '1'
+        let str2 = new String('123')
+        console.log(typeof arr, typeof brr, typeof str, typeof str2);
+        console.log(Object.prototype.toString.call(arr));
     </script>
 </body>
 

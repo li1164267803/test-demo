@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        setTimeout(function () {
+            console.log(1);
+        }, 0);
+        new Promise(function (a, b) {
+            console.log(2);
+            for (var i = 0; i < 10; i++) {
+                i == 9 && a();
+            }
+            console.log(3);
+        }).then(function () {
+            console.log(4);
+        });
+        console.log(5);
+        asdasd(2);
+        function asdasd(cb?: Function, ctx?: Object) { }
+    </script>
+</body>
+
+</html>
