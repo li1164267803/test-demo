@@ -158,6 +158,16 @@ const routes = [
     name: "A-Barrage",
     component: () => import("../views/A-Barrage"),
   },
+  {
+    path: "/sdk-maidian",
+    name: "sdk-maidian",
+    component: () => import("../views/sdk/maidian"),
+  },
+  {
+    path: "/npm",
+    name: "npm",
+    component: () => import("../views/xiwen-npm/xiwen-demo"),
+  },
 ];
 
 const props = (route) => {
@@ -174,6 +184,7 @@ routes.forEach((route) => {
     child.props = props;
   });
 });
+
 
 const router = new VueRouter({
   // mode: "history",

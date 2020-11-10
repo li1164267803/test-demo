@@ -1,33 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/model" tag="button">v-model绑定</router-link>
-      <router-link to="/hove" tag="button">这个溢出隐藏...，鼠标滑入显示</router-link>
-      <router-link to="/wacth" tag="button">测试父子组件生命周期执行顺序</router-link>
-      <router-link to="/sync" tag="button">测试父子组件sync</router-link>
-      <router-link to="/time" tag="button">时间小于10加0</router-link>
-      <router-link to="/table" tag="button">重写的table</router-link>
-      <router-link to="/native" tag="button">父组件中在子组件上使用@click和@click.native的区别</router-link>
-      <router-link to="/dowlondFileZip" tag="button">dowlondZip文件</router-link>
-      <router-link to="/webwork" tag="button">webwork</router-link>
-      <router-link to="/awakenAPP" tag="button">唤醒电脑上APP</router-link>
-      <router-link to="/echarts" tag="button">echarts</router-link>
-      <router-link to="/echarts/line" tag="button">echarts折线图</router-link>
-      <router-link to="/springBox" tag="button">使用extend自定义弹框</router-link>
-      <router-link to="/progress" tag="button">使用progress进度条</router-link>
-      <router-link to="/routerQuery/one" tag="button">页面query和params传值解耦</router-link>
-      <router-link to="/SSE" tag="button">SSE服务链接</router-link>
-      <router-link to="/throttle" tag="button">防抖节流</router-link>
-      <router-link to="/svga" tag="button">SVGA动画和canvas截取</router-link>
-      <router-link to="/markdown" tag="button">markdown插件 mavon-editor</router-link>
-      <router-link to="/tuieditor" tag="button">tuieditor MD组件</router-link>
-      <router-link to="/hook" tag="button">hook监听子组件生命周期的变化</router-link>
-      <router-link to="/keyup" tag="button">监听keyup事件</router-link>
-      <router-link to="/upload" tag="button">upload上传组件</router-link>
-      <router-link to="/drag" tag="button">drag移动弹框</router-link>
-      <router-link to="/provide" tag="button">provide父组件调用孙子组件的方法-bus事件总线</router-link>
-      <router-link to="/barrage" tag="button">弹幕功能 可添加点击事件</router-link>
-      <router-link to="/A-Barrage" tag="button">A-Barrage弹幕插件可添加事件</router-link>
+      <router-link 
+        v-for="(item, index) in listData[0].components" 
+        :key="index" 
+        :to="'/'+item.path" 
+        tag="button"
+      >
+        {{item.name}}
+      </router-link>
     </div>
     <div id="content-box">
       <div>--------------------------------------------分割线----------------------------------------------------</div>
@@ -38,9 +19,12 @@
   </div>
 </template>
 <script>
+import menu from "./menu.json";
+
 export default {
   data() {
     return {
+      listData: menu,
       cache: Object.create(null),
       includeKey: ["/sync"],
     };
