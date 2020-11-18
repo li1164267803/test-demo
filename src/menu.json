@@ -88,5 +88,11 @@
   }, {
     "name": "引入自定义的npm包",
     "path": "npm"
+  }, {
+    "name": "elemtn的导航菜单-修改宽度",
+    "path": "navMenu"
+  }, {
+    "name": "mixins 混入 重名",
+    "path": "mixins"
   }]
 }]

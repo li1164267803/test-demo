@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6中Symbol 类型</title>
+</head>
+
+<body>
+  <h3>ES6中Symbol 类型</h3>
+  <script>
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+    // https://www.cnblogs.com/shenjp/p/7143706.html
+    const handlers = Symbol()
+    this[handlers] = []
+    this[handlers].push({ id: 3242 })
+    console.log("handlers", this[handlers], this)
+  </script>
+</body>
+
+</html>

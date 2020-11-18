@@ -76,7 +76,7 @@ export default {
             });
           });
           zip.generateAsync({ type: "blob" }).then(function(content) {
-            saveAs(content, "example.zip"); // 下载文件
+            saveAs(content, "example名字.zip"); // 下载文件
             res();
           });
         });

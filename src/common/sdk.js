@@ -1,41 +1,60 @@
 /**
  *
- * @param {object} options - 参数对象
- * @param {boolean} isDev - 是否为开发环境 默认true
- * @param {Array} data - 请求传递的参数
+ * @param {object} options - 外部配置参数对象
+ * @param {boolean} isDev - 是否为开发环境 默认false
+ * @param {Array object} data - 手动上报传递一个数组格式[{}]  自动上报传递一个{}
  * @param {string} networkTips - 无网络提示文本
- * @param {boolean} isResults - 是否需要返回请求结果 自定义逻辑处理 返回结果不执行持续请求 默认false
  * @param {number} ms - 请求间隔 单位毫秒
  */
-export function logReporting(options) {
-  let obj = {
-    isDev: true,
-    data: [],
-    networkTips: "网络连接失败",
-    isResults: false,
-    ms: 5000
-  };
-  Object.assign(obj, options);
-  let { data, isDev, isResults, networkTips, ms } = obj;
-  let xhr = null;
-  // 测试域名未定，暂时使用ip + 端口
-  let url = `http://log-collect.aixuexi.com/collect/log/multi/online?strict=false`;
-  if (isDev) url = `http://47.94.194.201:14072/collect/log/multi/online_test?strict=false`;
-  function xmlhttp() {
-    if (!navigator.onLine) return window.alert(networkTips);
-    if (!xhr) {
-      xhr = new XMLHttpRequest();
-      xhr.timeout = 0; // 设置超时时间,0表示永不超时
+export class logReporting {
+  constructor() {
+    this.option={
+      isDev: false,
+      networkTips: "网络连接失败",
+      ms: 5000,
     }
+    this.arr = []
+    this.timerId = null
+    this.xhr = null
+  }
+  
+  init(options){ // 初始化
+    Object.assign(this.option, options);
+    this.xhr = new XMLHttpRequest();
+    this.xhr.timeout = 0; // 设置超时时间,0表示永不超时
+  }
+  addData(data){ // 设置请求参数，自动上报
+    this.arr.push(data)
+    if(this.timerId) return
+    this.timerFn()
+  }
+  timerFn(){
+    let { ms } = this.option;
+    this.timerId = setInterval(() => {
+       let arr = JSON.parse(JSON.stringify(this.arr))
+       this.arr = []
+        // 没有数据后，停止自动上报
+       if(arr.length<=0) {
+         clearInterval(this.timerId)
+         this.timerId = null
+         return
+       }
+       this.xmlhttp(arr)
+     }, ms);
+  }
+  // 可单次手动上报，请求参数为数组
+  xmlhttp(data) {
+     // 测试域名未定，暂时使用ip + 端口
+    let url = `http://log-collect.aixuexi.com/collect/log/multi/online?strict=false`;
+    if (this.option.isDev) url = `http://47.94.194.201:14072/collect/log/multi/online_test?strict=false`;
+    if (!navigator.onLine) return window.alert(this.option.networkTips);
     return new Promise((resolve, reject) => {
-      xhr.open("post", url, true);
-      xhr.setRequestHeader("Content-Type", "application/json;");
-      xhr.onload = e => resolve(JSON.parse(xhr.responseText));
-      xhr.onerror = e => reject(e);
-      xhr.ontimeout = e => reject(e);
-      xhr.send(JSON.stringify(data));
+      this.xhr.open("post", url, true);
+      this.xhr.setRequestHeader("Content-Type", "application/json;");
+      this.xhr.onload = e => resolve(JSON.parse(this.xhr.responseText));
+      this.xhr.onerror = e => reject(e);
+      this.xhr.ontimeout = e => reject(e);
+      this.xhr.send(JSON.stringify(data));
     });
   }
-  if (isResults) return xmlhttp();
-  setInterval(() => xmlhttp(), ms);
 }

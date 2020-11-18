@@ -168,6 +168,16 @@ const routes = [
     name: "npm",
     component: () => import("../views/xiwen-npm/xiwen-demo"),
   },
+  {
+    path: "/navMenu",
+    name: "navMenu",
+    component: () => import("../views/navMenu"),
+  },
+  {
+    path: "/mixins",
+    name: "mixins",
+    component: () => import("../views/mixins"),
+  },
 ];
 
 const props = (route) => {

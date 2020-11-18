@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>querySelector和getElementById的区别</title>
+</head>
+
+<body>
+  <h3>querySelector和getElementById的区别</h3>
+  <ul id="1getElementById">
+    <li>getElementById 的元素</li>
+  </ul>
+  <ul id="querySelector">
+    <li>querySelector 的元素</li>
+  </ul>
+</body>
+
+<script>
+  // https://www.zhihu.com/question/24702250/answer/28695133
+  // 需要注意的是，querySelectorAll 所接收的参数是必须严格符合 CSS 选择符规范的。所以下面这种写法，将会抛出异常。
+  // （CSS 选择器中的元素名，类和 ID 均不能以数字为开头。）
+  let getElementById = document.getElementById('1getElementById')
+  console.log(getElementById);
+  let querySelector = document.querySelector('#querySelector')
+  console.log(querySelector);
+
+  getElementById.onclick = function () {
+    // Demo 2
+    console.log('点击出现卡死情况');
+    return
+    var ul = document.getElementsByTagName('ul')[0],
+      lis = ul.getElementsByTagName("li");
+    for (var i = 0; i < lis.length; i++) {
+      ul.appendChild(document.createElement("li"));
+    }
+    setTimeout(() => {
+      console.log('修改了getElementById的内容', getElementById);
+    }, 0);
+  }
+  querySelector.onclick = function () {
+    // querySelector.innerHTML = '修改了内容'
+    // Demo 1
+    var ul = document.querySelectorAll('ul')[1],
+      lis = ul.querySelectorAll("li");
+    for (var i = 0; i < lis.length; i++) {
+      ul.appendChild(document.createElement("li"));
+    }
+
+    setTimeout(() => {
+      console.log('修改了querySelector的内容', querySelector);
+    }, 0);
+  }
+  // 因为 Demo 2 中的 lis 是一个动态的 Node List， 每一次调用 lis 都会重新对文档进行查询，导致无限循环的问题。
+  // 而 Demo 1 中的 lis 是一个静态的 Node List，是一个 li 集合的快照，对文档的任何操作都不会对其产生影响。
+
+</script>
+
+</html>

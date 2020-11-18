@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="logReporting">日志上报</button>
+    <button @click="logReporting3">单次日志上报</button>
   </div>
 </template>
 
@@ -9,29 +9,31 @@ import { logReporting } from "@/common/sdk";
 
 export default {
   data() {
-    return {};
+    return {
+      logReporting:null
+    };
   },
   methods: {
-    logReporting() {
-      // 5s上报一次日志
-      let data = {
+    logReporting3() { // 手动上报 需要传递一个数组，可多条数据
+      let arr = [{
         equipment: "pc",
         projectname: "1244437890123",
         versionnum: "45435353534535353453534534",
         networkType: "3g",
         timestamp: new Date().getTime(),
         logInfor: "错误信息错误息"
-      };
-      let opstion = {
-        data: [data],
-        networkTips: "自定义的提示",
-        isDev: true
-      };
-      return logReporting(opstion);
+      }];
+      this.logReporting.xmlhttp(arr)
     }
   },
   mounted() {
-    // 单次返回请求结果
+    this.logReporting = new logReporting()
+    let opstion = {
+      networkTips: "自定义的提示",
+      isDev: true
+    };
+    this.logReporting.init(opstion)
+    
     let data = {
       equipment: "pc",
       projectname: "1244437890123",
@@ -40,15 +42,13 @@ export default {
       timestamp: new Date().getTime(),
       logInfor: "错误信息错误息2"
     };
-    let opstion = {
-      data: [data],
-      networkTips: "asdasd",
-      isDev: true,
-      isResults: true
-    };
-    logReporting(opstion).then(res => {
-      console.log(res);
-    });
+
+    // addData 为设置上传数据并定时自动上报
+    this.logReporting.addData(data)
+    // 5s内没有数据后，会停止自动上报
+    setTimeout(() => {
+      this.logReporting.addData(data)
+    }, 15000);
   }
 };
 </script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>js中监听数值的变化</title>
+</head>
+
+<body>
+  <h3>js中监听数值的变化</h3>
+
+  <script>
+    let obj = { id: 34 }
+    let num = 3
+    let arr = [3]
+    Object.defineProperty(obj, 'id', {
+      set: function (newVal) {
+        console.log("newVal", newVal)
+        // 当obj.msg被赋值时 同时设置给 input/span
+        // oOne.value = newVal
+      }
+    });
+    setTimeout(() => {
+      num = 5
+      arr[0] = 999
+      obj.id = 999999
+      console.log('定时器');
+    }, 3000);
+  </script>
+</body>
+
+</html>
