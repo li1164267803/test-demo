@@ -5,6 +5,11 @@ import store from "./store";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
 
+// 使用vue3中的composition-api
+// https://github.com/vuejs/composition-api/blob/HEAD/README.zh-CN.md
+import VueCompositionAPI from '@vue/composition-api'
+Vue.use(VueCompositionAPI)
+
 // import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 import Toast from './components/common/Toast/toast.js';

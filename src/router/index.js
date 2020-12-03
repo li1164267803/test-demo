@@ -177,6 +177,10 @@ const routes = [
     path: "/mixins",
     name: "mixins",
     component: () => import("../views/mixins"),
+  },{
+    path: "/composition-api",
+    name: "composition-api",
+    component: () => import("../views/composition-api"),
   },
 ];
 
