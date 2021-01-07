@@ -6,20 +6,18 @@
  * @param {string} networkTips - 无网络提示文本
  * @param {number} ms - 请求间隔 单位毫秒
  */
-export class logReporting {
-  constructor() {
+class logReporting {
+  constructor(options) {
     this.option={
       isDev: false,
       networkTips: "网络连接失败",
       ms: 5000,
     }
+    Object.assign(this.option, options);
+
     this.arr = []
     this.timerId = null
-    this.xhr = null
-  }
-  
-  init(options){ // 初始化
-    Object.assign(this.option, options);
+
     this.xhr = new XMLHttpRequest();
     this.xhr.timeout = 0; // 设置超时时间,0表示永不超时
   }
@@ -45,8 +43,8 @@ export class logReporting {
   // 可单次手动上报，请求参数为数组
   xmlhttp(data) {
      // 测试域名未定，暂时使用ip + 端口
-    let url = `http://log-collect.aixuexi.com/collect/log/multi/online?strict=false`;
-    if (this.option.isDev) url = `http://47.94.194.201:14072/collect/log/multi/online_test?strict=false`;
+    let url = "https://logcollectzx.aixuexi.com/collect/log/multi/online?strict=false";
+    if (this.option.isDev) url = `https://logcollectzx.aixuexi.com/collect/log/multi/online_test?strict=false`;
     if (!navigator.onLine) return window.alert(this.option.networkTips);
     return new Promise((resolve, reject) => {
       this.xhr.open("post", url, true);
@@ -58,3 +56,4 @@ export class logReporting {
     });
   }
 }
+export default logReporting

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button @click="logReporting3">单次日志上报</button>
+    <button @click="logReporting3">单次日志上报 看控制台请求</button>
   </div>
 </template>
 
 <script>
-import { logReporting } from "@/common/sdk";
+import logReporting from "@/common/sdk";
 
 export default {
   data() {
@@ -27,12 +27,11 @@ export default {
     }
   },
   mounted() {
-    this.logReporting = new logReporting()
     let opstion = {
       networkTips: "自定义的提示",
       isDev: true
     };
-    this.logReporting.init(opstion)
+    this.logReporting = new logReporting(opstion)
     
     let data = {
       equipment: "pc",
