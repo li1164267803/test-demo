@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for forEach for-in for-of 的区别</title>
+</head>
+
+<body>
+  <h3>for forEach for-in for-of 的区别</h3>
+
+  <script>
+    let arr = [1, 2, 3, 4, 5]
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      if (element == 2) {
+        console.log(12312);
+        break
+      }
+      console.log('for循环输出', element);
+    }
+    arr.forEach(element => {
+      if (element == 2) return
+      console.log('forEach循环输出', element);
+    });
+    for (const iterator of arr) {
+      if (iterator == 2) break;
+      console.log('for of循环输出', iterator);
+    }
+    for (const key in arr) {
+      const element = arr[key];
+      if (element == 2) break
+      console.log('for in循环输出', element);
+    }
+  </script>
+</body>
+
+</html>

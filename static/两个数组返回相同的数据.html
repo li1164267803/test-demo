@@ -52,6 +52,18 @@
         var a = [5, 5, '1', '2', 6, 7, 6];
         var ans = unique(a);
         console.log(ans); // => [1, "1", "2"]
+
+        // ES5数组去重
+        function unique(arr) {
+            var arr1 = [];       // 新建一个数组来存放arr中的值
+            for (var i = 0, len = arr.length; i < len; i++) {
+                if (arr1.indexOf(arr[i]) === -1) {
+                    arr1.push(arr[i]);
+                }
+            }
+            return arr1;
+        }
+        // console.log(unique(arr));    // 1, -5, -4, 0, 7, 3
     </script>
 </body>
 

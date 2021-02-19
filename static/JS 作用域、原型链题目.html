@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于继承，原型链的题目</title>
+</head>
+
+<body>
+    <h3>LILY 英语面试题</h3>
+    <h3>关于继承，原型链的题目</h3>
+    <script>
+        // var a = 1
+        // setTimeout(() => {
+        //     // console.log(a);
+        // }, 100);
+        // a一直是true while会一直执行，setTimeout是宏任务会放在事件最后执行
+        // 但浏览器一直被while站住了线程，所以会一直走while 出现卡死的情况，不会执行setTimeout
+        // while (a) {
+        //     console.log('执行了一次while');
+        //     a = 1
+        // }
+
+        /*********************************************************************************************/
+
+        // https://segmentfault.com/a/1190000007005051
+        // https://segmentfault.com/a/1190000022710465
+        function foo() { //定义了一个名叫Foo的函数
+            console.log('执行函数foo');
+            getName = function () { console.log(1) } //(1)函数内定义了一个函数变量
+            return this
+        }
+        foo.getName = function () { console.log(2); } //(2)创建了Foo的静态属性
+        foo.prototype.getName = function () { console.log(3); }//(3)定义了Foo函数原型对象上的getName函数
+        var getName = function () { console.log(4); }//(4)通过函数变量表达式定义了一个叫getName的函数
+        function getName() { console.log(5); }//(5)声明了一个getName函数
+
+        // foo.getName()这个时候可以认为foo是一个对象，这个对象上面的getName方法被执行了 打印2
+        foo.getName() // 2
+        // function getName 这种方式是函数提升了,然后 var getName = 这种定义会导致声明提升但赋值不提升
+        // 所以最终使用的是var getName 的覆盖 function getName 打印4
+        getName() // 4 
+        // foo()这个可以认为是window.foo()，所以它的this返回的是window, 
+        // 然后它.getName()就是window.getName()那么其实就是调用的getName()，getName被重新赋值了 打印 1
+        foo().getName() // 1
+        getName() // 1 
+        // new foo.getName()  点（.）的优先级高于 new, 相当于 var abc = foo.getName 执行 new abc()，
+        // 相当于执行 getName 的构造函数 打印2
+        new foo.getName() // 2
+        // new foo().getName() 先生成对象,对象的本身没有getName，但其原型链上面有 打印3
+        new foo().getName() // 3
+        // new new foo().getName() 还是 . 优先度高于new ,所以 new (new foo().getName)()
+        // 是执行了原型上面的getName的构造函数, 打印3
+        new new foo().getName() // 3
+
+        // console.log('-------------------------------');
+        // // js中变量名与函数名重名的问题 https://blog.csdn.net/Charles_Tian/article/details/79775909
+        // var a = 1
+        // function b() { // 内部的函数提升了，把内部的函数a赋值了10 所以不会更改全局的a
+        //     a = 10;
+        //     return
+        //     function a() {
+        //         console.log(10);
+        //     }
+        // }
+        // b()
+        // console.log(a); // 1
+
+
+    </script>
+</body>
+
+</html>

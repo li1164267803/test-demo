@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖和节流</title>
+    <style>
+        body,
+        html {
+            height: 5000px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>防抖和节流</h3>
+    <script>
+        // 防抖：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时（debounce）
+        // 实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法
+        // 缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟
+        // 一般可以使用在用户输入停止一段时间过后再去获取数据，而不是每次输入都去获取
+        // function debounce(fn, ms) {
+        //     let time = null;
+        //     return function (...args) {
+        //         if (time) clearTimeout(time);
+        //         time = setTimeout(fn, ms);
+        //     }
+        // }
+        // // 测试
+        // function task() {
+        //     console.log('防抖函数');
+        // }
+        // window.addEventListener('scroll', debounce(task, 1000))
+
+        new Promise((resolve, reject) => {
+            console.log(1);
+            resolve()
+        }).then(() => {
+            console.log(2);
+            new Promise((resolve, reject) => {
+                console.log(3);
+                resolve()
+            }).then(() => {
+                console.log(4);
+            }).then(() => {
+                console.log(5);
+            })
+        }).then(() => {
+            console.log(6);
+        })
+
+    </script>
+</body>
+
+</html>
