@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>js事件循环微宏任务</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  // 深入理解JavaScript的事件循环（Event Loop）
+  // https://blog.csdn.net/tzllxya/article/details/92674042
+  console.log('start'); // 1
+
+  var intervalA = setInterval(() => {
+    console.log('intervalA'); // 12
+  }, 0);
+
+  setTimeout(() => {
+    console.log('timeout'); // 13
+
+    clearInterval(intervalA);
+  }, 0);
+
+  var intervalB = setInterval(() => {
+    console.log('intervalB');
+  }, 0);
+
+  var intervalC = setInterval(() => {
+    console.log('intervalC'); // 14
+  }, 0);
+
+  new Promise((resolve, reject) => {
+    console.log('promise'); // 2
+
+    for (var i = 0; i < 10000; ++i) {
+      i === 9999 && resolve();
+    }
+
+    console.log('promise after for-loop'); // 3
+  }).then(() => {
+    console.log('promise1'); // 8
+  }).then(() => {
+    console.log('promise2'); // 11
+
+    clearInterval(intervalB);
+  });
+
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('promise in timeout'); // 15
+      resolve();
+    });
+
+    console.log('promise after timeout'); // 4
+  }).then(() => {
+    console.log('promise4'); // 16
+  }).then(() => {
+    console.log('promise5'); // 17
+
+    clearInterval(intervalC);
+  });
+
+  Promise.resolve().then(() => {
+    console.log('promise3'); // 9
+  });
+
+  console.log('end'); // 5
+
+  asyncFn()
+  async function asyncFn() {
+    console.log('asyncFn1'); // 6
+    await new Promise((resolve, reject) => {
+      console.log('asyncFn2'); // 7
+      resolve();
+    }).then(() => {
+      console.log('asyncFn3'); // 10
+    })
+  }
+</script>
+
+</html>
