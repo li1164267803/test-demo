@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flex布局宽度不够的时候，不压缩子集宽度</title>
+</head>
+<style>
+  .box {
+    border: 1px solid #000;
+    height: 100px;
+    width: 1000px;
+    display: flex;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  .item {
+    background-color: yellow;
+    border: 1px solid #000;
+    height: 50px;
+    width: 500px;
+    /* flex-shrink 控制子集是否压缩宽度 默认为1 */
+    flex-shrink: 0;
+    /* flex: 0 0 auto; */
+    /* flex: none; */
+  }
+
+  .yuan-box {
+    border: 1px solid #000;
+    width: 120px;
+  }
+
+  .yuan {
+    border: 20px solid #000;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    transform: rotate(-45deg);
+  }
+</style>
+
+<body>
+  <!-- http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html -->
+  <div class="box">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+
+  <div class="yuan-box">
+    <div class="yuan"></div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  浅拷贝
+  <script>
+    let obj = {
+      name: '1111',
+      list: {
+        name: '22222'
+      }
+    }
+
+    let obj1 = {
+      name: obj.name,
+      list: obj.list
+    }
+    obj1.name = 'BBB'
+    obj1.list.name = 'asdasdasd'
+    console.log(obj); // AAA
+    console.log(obj1); // BBB
+  </script>
+</body>
+
+</html>

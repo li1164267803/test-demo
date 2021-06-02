@@ -1,98 +1,136 @@
-[{
-  "types": "组件列表",
-  "prefix": "log",
-  "components": [{
-    "name": "v-model绑定",
-    "path": "model"
-  }, {
-    "name": "这个溢出隐藏...，鼠标滑入显示",
-    "path": "hove"
-  }, {
-    "name": "测试父子组件生命周期执行顺序",
-    "path": "wacth"
-  }, {
-    "name": "测试父子组件sync",
-    "path": "sync"
-  }, {
-    "name": "时间小于10加0",
-    "path": "time"
-  }, {
-    "name": "重写的table",
-    "path": "table"
-  }, {
-    "name": "父组件中在子组件上使用@click和@click.native的区别",
-    "path": "native"
-  }, {
-    "name": "dowlondZip文件",
-    "path": "dowlondFileZip"
-  }, {
-    "name": "webwork",
-    "path": "webwork"
-  }, {
-    "name": "唤醒电脑上APP",
-    "path": "awakenAPP"
-  }, {
-    "name": "echarts",
-    "path": "echarts"
-  }, {
-    "name": "echarts折线图",
-    "path": "echarts/line"
-  }, {
-    "name": "使用extend自定义弹框",
-    "path": "springBox"
-  }, {
-    "name": "使用progress进度条",
-    "path": "progress"
-  }, {
-    "name": "页面query和params传值解耦",
-    "path": "routerQuery/one"
-  }, {
-    "name": "SSE服务链接",
-    "path": "SSE"
-  }, {
-    "name": "防抖节流",
-    "path": "throttle"
-  }, {
-    "name": "SVGA动画和canvas截取",
-    "path": "svga"
-  }, {
-    "name": "markdown插件 mavon-editor",
-    "path": "markdown"
-  }, {
-    "name": "tuieditor MD组件",
-    "path": "tuieditor"
-  }, {
-    "name": "hook监听子组件生命周期的变化",
-    "path": "hook"
-  }, {
-    "name": "监听keyup事件",
-    "path": "keyup"
-  }, {
-    "name": "upload上传组件",
-    "path": "upload"
-  }, {
-    "name": "drag移动弹框",
-    "path": "drag"
-  }, {
-    "name": "provide父组件调用孙子组件的方法-bus事件总线",
-    "path": "provide"
-  }, {
-    "name": "弹幕功能 可添加点击事件",
-    "path": "barrage"
-  }, {
-    "name": "A-Barrage弹幕插件可添加事件",
-    "path": "A-Barrage"
-  }, {
-    "name": "添加一个埋点的SDK",
-    "path": "sdk-maidian"
-  }, {
-    "name": "引入自定义的npm包",
-    "path": "npm"
-  }, {
-    "name": "elemtn的导航菜单-修改宽度",
-    "path": "navMenu"
-  }, {
-    "name": "mixins 混入 重名",
-    "path": "mixins"
-  }]
-}]
+[
+  {
+    "types": "组件列表",
+    "prefix": "log",
+    "components": [
+      {
+        "name": "v-model绑定",
+        "path": "model"
+      },
+      {
+        "name": "这个溢出隐藏...，鼠标滑入显示",
+        "path": "hove"
+      },
+      {
+        "name": "测试父子组件生命周期执行顺序",
+        "path": "wacth"
+      },
+      {
+        "name": "测试父子组件sync",
+        "path": "sync"
+      },
+      {
+        "name": "时间小于10加0",
+        "path": "time"
+      },
+      {
+        "name": "重写的table",
+        "path": "table"
+      },
+      {
+        "name": "父组件中在子组件上使用@click和@click.native的区别",
+        "path": "native"
+      },
+      {
+        "name": "dowlondZip文件",
+        "path": "dowlondFileZip"
+      },
+      {
+        "name": "webwork",
+        "path": "webwork"
+      },
+      {
+        "name": "唤醒电脑上APP",
+        "path": "awakenAPP"
+      },
+      {
+        "name": "echarts",
+        "path": "echarts"
+      },
+      {
+        "name": "echarts折线图",
+        "path": "echarts/line"
+      },
+      {
+        "name": "使用extend自定义弹框",
+        "path": "springBox"
+      },
+      {
+        "name": "使用progress进度条",
+        "path": "progress"
+      },
+      {
+        "name": "页面query和params传值解耦",
+        "path": "routerQuery/one"
+      },
+      {
+        "name": "SSE服务链接",
+        "path": "SSE"
+      },
+      {
+        "name": "防抖节流",
+        "path": "throttle"
+      },
+      {
+        "name": "SVGA动画和canvas截取",
+        "path": "svga"
+      },
+      {
+        "name": "markdown插件 mavon-editor",
+        "path": "markdown"
+      },
+      {
+        "name": "tuieditor MD组件",
+        "path": "tuieditor"
+      },
+      {
+        "name": "hook监听子组件生命周期的变化",
+        "path": "hook"
+      },
+      {
+        "name": "监听keyup事件",
+        "path": "keyup"
+      },
+      {
+        "name": "upload上传组件",
+        "path": "upload"
+      },
+      {
+        "name": "drag移动弹框",
+        "path": "drag"
+      },
+      {
+        "name": "provide父组件调用孙子组件的方法-bus事件总线",
+        "path": "provide"
+      },
+      {
+        "name": "弹幕功能 可添加点击事件",
+        "path": "barrage"
+      },
+      {
+        "name": "A-Barrage弹幕插件可添加事件",
+        "path": "A-Barrage"
+      },
+      {
+        "name": "添加一个埋点的SDK",
+        "path": "sdk-maidian"
+      },
+      {
+        "name": "引入自定义的npm包",
+        "path": "npm"
+      },
+      {
+        "name": "elemtn的导航菜单-修改宽度",
+        "path": "navMenu"
+      },
+      {
+        "name": "mixins 混入 重名",
+        "path": "mixins"
+      },
+      {
+        "name": "composition-api",
+        "path": "composition-api"
+      }
+    ]
+  }
+]
