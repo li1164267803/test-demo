@@ -17,6 +17,8 @@ import ToastQingke from './components/common/ToastQingke/toastQingke.js';
 
 import '@/assets/styles/index.less' // 全局 css
 
+// import vconsole from 'vconsole'
+// if (process.env.VUE_APP_MODE != 'prod') new vconsole()
 
 // Vue.use(ElementUI);
 import './icons' // icon

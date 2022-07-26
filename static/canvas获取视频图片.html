@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上传视频后截取视频图片</title>
+  </head>
+
+  <body>
+    <h3>上传视频后截取视频图片</h3>
+    <input id="videoUpload" type="file" accept="video/*" />
+  </body>
+  <script>
+    // https://github.com/metroluffy/blog/issues/18
+
+    let videoEle = document.querySelector("#videoUpload");
+    videoEle.addEventListener("change", () => {
+      getVideoImage(
+        URL.createObjectURL(videoEle.files[0]),
+        (img, time) => {
+          document.body.appendChild(img);
+          console.log(img, time);
+        },
+        3
+      );
+    });
+
+    /**
+     * 获取封面第一帧及时长
+     * path 路径
+     * callback 回调
+     * secs 在第几秒开始截取
+     */
+    function getVideoImage(path, callback, secs = 1) {
+      var me = this,
+        video = document.createElement("video");
+      video.onloadedmetadata = function() {
+        if ("function" === typeof secs) {
+          secs = secs(this.duration);
+        }
+        this.currentTime = Math.min(
+          Math.max(0, (secs < 0 ? this.duration : 0) + secs),
+          this.duration
+        );
+      };
+      video.onseeked = function(e) {
+        var canvas = document.createElement("canvas");
+        canvas.height = video.videoHeight;
+        canvas.width = video.videoWidth;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var img = new Image();
+        img.src = canvas.toDataURL();
+        callback.call(me, img, this.currentTime, e);
+      };
+      video.onerror = function(e) {
+        callback.call(me, undefined, undefined, e);
+      };
+      video.src = path;
+    }
+    /**
+     * Base64 转 Blob对象
+     * @param dataURI
+     * @returns {Blob}
+     */
+    function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      let byteString;
+      if (dataURI.split(",")[0].indexOf("base64") >= 0) {
+        byteString = atob(dataURI.split(",")[1]);
+      } else {
+        byteString = unescape(dataURI.split(",")[1]);
+      }
+
+      // separate out the mime component
+      let mimeString = dataURI
+        .split(",")[0]
+        .split(":")[1]
+        .split(";")[0];
+
+      // write the bytes of the string to a typed array
+      let ia = new Uint8Array(byteString.length);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {
+        type: mimeString,
+      });
+    }
+  </script>
+</html>

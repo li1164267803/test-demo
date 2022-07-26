@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>防抖和节流</title>
     <style>
         body,
@@ -22,23 +22,59 @@
         // 一般可以使用在用户输入停止一段时间过后再去获取数据，而不是每次输入都去获取
         // function debounce(fn, ms) {
         //     let time = null;
-        //     return function (...args) {
+        //     return function () {
         //         if (time) clearTimeout(time);
-        //         time = setTimeout(fn, ms);
-        //     }
+        //         time = setTimeout(() => {
+        //             console.log(222, arguments);
+        //             fn.apply(this, arguments);
+        //         }, ms);
+        //     };
         // }
         // // 测试
-        // function task() {
-        //     console.log('防抖函数');
+        // function task(num) {
+        //     console.log("防抖函数", num);
         // }
-        // window.addEventListener('scroll', debounce(task, 1000))
+        // ceshiFn()
+        // function ceshiFn() {
+        //     // 得到返回的方法
+        //     let fun = debounce(task, 1000);
+        //     for (let i = 0; i < 10; i++) {
+        //         // 执行方法并传参
+        //         fun(123 + i);
+        //     }
+        // }
+        // 节流
+        // 一段时间内，只触发一次，那么在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效。
+        // var throttle = function (fn, delay) {
+        //     var timer = null;
+        //     return function () {
+        //         if (!timer) {
+        //             timer = setTimeout(() => {
+        //                 fn.apply(this, arguments);
+        //                 timer = null;
+        //             }, delay);
+        //         }
+        //     };
+        // };
 
+        // function handle() {
+        //     // 业务逻辑函数
+        //     console.log(Math.random());
+        // }
+
+        // window.addEventListener("scroll", throttle(handle, 800));
+
+        // https://juejin.cn/post/6876686095954903048
         new Promise((resolve, reject) => {
             console.log(1);
             resolve()
+
         }).then(() => {
             console.log(2);
+            // 如果加上 return 结果就变成 1 2 3 4 5 6
+            //    return  new Promise((resolve, reject) => {
             new Promise((resolve, reject) => {
+                // 输出 1 2 3 4 6 5
                 console.log(3);
                 resolve()
             }).then(() => {

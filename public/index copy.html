@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+
+    <link href="https://s1.wenjuan.com/static/css/reset.css?v=0fa55f7f1ac50524ab1a7e8316775c98" rel="stylesheet">
+    <link href="https://s1.wenjuan.com/static/css/codemirror.css?v=377166f095c69b533ca2f53deff1549b" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://s1.wenjuan.com/static/build/css/import_text.css?v=6b34423db842983673513116262bc679">
+    <style>
+        .import-text-page {
+            position: fixed;
+            padding: 76px 12px 12px;
+            z-index: 1;
+        }
+
+        .import-text-page.max-index {
+            z-index: 11;
+        }
+    </style>
+    <title>test-demo</title>
+    <style>
+        * {
+            margin: 0 auto;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <noscript>
+        <strong>We're sorry but test-demo doesn't work properly without JavaScript
+            enabled. Please enable it to continue.</strong>
+    </noscript>
+    <!-- <div id="app"></div> -->
+    <!-- 说的方法 -->
+    <div id="app2"></div>
+    <!-- <div class="import-text-page"></div> -->
+    <!-- built files will be auto injected -->
+</body>
+<!-- <script src="./js/drag_box.js"></script> -->
+<script src="https://s1.wenjuan.com/static/js/codemirror.js?v=f8572be50c4a226e021fab5986dfebb3"></script>
+<!-- <script src="https://s1.wenjuan.com/static/build/js/import_text.js?v=0b431fc27cd1ac52e0ec64d45fd693ff"></script> -->
+<script src="./js/impot.js"></script>
+<script>
+    (function () {
+        var importInstance = window.getImportCreateInstance();
+        importInstance.$mount('#app2');
+        $('.header-import-text .header-create-left').click(function () {
+            if (importInstance.hasEdit) {
+                importInstance.leaveConfirm = true;
+            } else {
+                importInstance.confirmLeave();
+            }
+        });
+    })();
+</script>
+
+</html>

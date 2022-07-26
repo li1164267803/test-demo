@@ -1,0 +1,39 @@
+<!-- /<!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js函数柯里化</title>
+</head>
+
+<body>
+    <h3>打开控制台查看-js函数柯里化</h3>
+</body>
+<script>
+    // https://www.cnblogs.com/jztan/p/12256332.html
+    // https://zh.javascript.info/currying-partials
+    function curry(fn, args) {
+        var length = fn.length;
+        // console.log(1111,length,fn,args);
+        args = args || [];
+        return function (...rest) {
+            var _args = [...args, ...rest];
+            // console.log(222,'args:',args,'_args:',_args,'rest:',rest);
+            return _args.length < length
+                ? curry.call(this, fn, _args)
+                : fn.apply(this, _args);
+        }
+    }
+    var fn = curry(function (a, b, c) {
+        console.log(a + b + c);
+    });
+    // console.log(9999,fn);
+    // fn('a', 'b', 'c','d'); // abc
+    debugger
+    fn('a','b' )('c'); // abc
+    // fn('a')('b')('c'); // abc
+</script>
+
+</html>

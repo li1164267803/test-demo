@@ -23,6 +23,7 @@ export default {
             const { title, $refs: { showTips, showTips: { offsetWidth, offsetHeight } } } = this;
             const textDiv = document.createElement('div')
             const curStyle = window.getComputedStyle(showTips)
+            console.log(222222,curStyle,showTips);
             textDiv.style.cssText = `
                 word-break: break-word;
                 width:${offsetWidth}px;

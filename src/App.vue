@@ -1,18 +1,24 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link 
-        v-for="(item, index) in listData[0].components" 
-        :key="index" 
-        :to="'/'+item.path" 
+      <router-link
+        v-for="(item, index) in listData[0].components"
+        :key="index"
+        :to="'/' + item.path"
         tag="button"
       >
-        {{item.name}}
+        {{ item.name }}
       </router-link>
     </div>
     <div id="content-box">
-      <div>--------------------------------------------分割线----------------------------------------------------</div>
-      <keep-alive :cache="cache" :includeKey="includeKey" :include="cachedViews()">
+      <div>
+        --------------------------------------------分割线----------------------------------------------------
+      </div>
+      <keep-alive
+        :cache="cache"
+        :includeKey="includeKey"
+        :include="cachedViews()"
+      >
         <router-view />
       </keep-alive>
     </div>
@@ -25,6 +31,7 @@ export default {
   data() {
     return {
       listData: menu,
+      number: 2,
       cache: Object.create(null),
       includeKey: ["/sync"],
     };
@@ -38,6 +45,13 @@ export default {
     cachedViews() {
       return ["index"];
     },
+  },
+  created() {
+    console.log("created");
+    setTimeout(() => {
+      this.number = 8;
+      console.log("定时器");
+    }, 3000);
   },
 };
 </script>

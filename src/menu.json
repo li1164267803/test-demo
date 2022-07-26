@@ -4,6 +4,10 @@
     "prefix": "log",
     "components": [
       {
+        "name": "About",
+        "path": "about"
+      },
+      {
         "name": "v-model绑定",
         "path": "model"
       },
@@ -130,6 +134,14 @@
       {
         "name": "composition-api",
         "path": "composition-api"
+      },
+      {
+        "name": "解析",
+        "path": "jiexi"
+      },
+      {
+        "name": "图片下载",
+        "path": "imageDol"
       }
     ]
   }

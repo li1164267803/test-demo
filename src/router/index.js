@@ -3,7 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
-
+setTimeout(() => {
+    
+}, timeout);
 const routes = [
   {
     path: "/",
@@ -177,10 +179,21 @@ const routes = [
     path: "/mixins",
     name: "mixins",
     component: () => import("../views/mixins"),
-  },{
+  },
+  {
     path: "/composition-api",
     name: "composition-api",
     component: () => import("../views/composition-api"),
+  },
+  {
+    path: "/jiexi",
+    name: "jiexi",
+    component: () => import("../views/jiexi"),
+  },
+  {
+    path: "/imageDol",
+    name: "imageDol",
+    component: () => import("../views/imageDol"),
   },
 ];
 
@@ -198,7 +211,6 @@ routes.forEach((route) => {
     child.props = props;
   });
 });
-
 
 const router = new VueRouter({
   // mode: "history",
