@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let head = {
+                val: 1,
+                next: {
+                    val: 6,
+                    next: {
+                        val: 3,
+                        next: {
+                            val: 9,
+                            next: {
+                                val: 8,
+                                next: {
+                                    val: 4,
+                                    next: null,
+                                },
+                            },
+                        },
+                    },
+                },
+            }
+            // 不是正经的方法
+            function ListNode(val, next) {
+                this.val = val === undefined ? 0 : val
+                this.next = next === undefined ? null : next
+            }
+            var sortList = function(head) {
+                let curr = head
+                let arr = []
+                while (curr) {
+                    // 链表转成数组
+                    arr.push(curr.val)
+                    curr = curr.next
+                }
+                arr.sort((a, b) => a - b) // 数组排序
+                if (arr.length <= 0) return head
+                let header = new ListNode(arr[0])
+                let current = header
+                for (let i = 1; i < arr.length; i++) {
+                    // 数组变成链表
+                    current.next = { val: arr[i], next: null }
+                    current = current.next
+                }
+                return header
+            }
+
+            console.log('有序链表：', sortList(head))
+        </script>
+    </body>
+</html>

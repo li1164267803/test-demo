@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let head = {
+                val: 1,
+                next: {
+                    val: 1,
+                    next: {
+                        val: 1,
+                        next: {
+                            val: 2,
+                            next: {
+                                val: 3,
+                                next: {
+                                    val: 4,
+                                    next: null,
+                                },
+                            },
+                        },
+                    },
+                },
+            }
+            var deleteDuplicates = function(head) {
+                let node = head
+                while (node.next) {
+                    console.log(node)
+                    if (node.val == node.next.val) {
+                        console.log('相等', node)
+                        node.next = node.next.next
+                    } else {
+                        node = node.next
+                    }
+                }
+                return head
+            }
+            console.log(3424, deleteDuplicates(head))
+        </script>
+    </body>
+</html>

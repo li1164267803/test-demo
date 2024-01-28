@@ -142,6 +142,10 @@
       {
         "name": "图片下载",
         "path": "imageDol"
+      },
+      {
+        "name": "打开项目的浏览器标签",
+        "path": "browserLabel"
       }
     ]
   }

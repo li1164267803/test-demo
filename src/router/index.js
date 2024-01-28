@@ -3,9 +3,6 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
-setTimeout(() => {
-    
-}, timeout);
 const routes = [
   {
     path: "/",
@@ -195,6 +192,12 @@ const routes = [
     name: "imageDol",
     component: () => import("../views/imageDol"),
   },
+  {
+    path: "/browserLabel",
+    name: "browserLabel",
+    component: () => import("../views/browserLabel"),
+  },
+  
 ];
 
 const props = (route) => {

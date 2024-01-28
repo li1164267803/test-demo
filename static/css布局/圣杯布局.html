@@ -1,63 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-    }
+            .wrap {
+                color: #fff;
+                width: 100%;
+                overflow: hidden;
+                padding: 0 100px;
+                background: #eee;
+                box-sizing: border-box;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+            }
+            .main {
+                background: #333;
+                width: 100%;
+                float: left;
+                height: 100%;
+            }
+            .left {
+                width: 100px;
+                margin-left: -100%;
+                float: left;
+                background: #dc3e3e;
+                position: relative;
+                left: -100px;
+                height: 100%;
+            }
 
-    .wrap {
-      color: #fff;
-      width: 100%;
-      overflow: hidden;
-      padding: 0 100px;
-      background: #eee;
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-    }
+            .right {
+                float: left;
+                width: 100px;
+                margin-left: -100px;
+                background: #dc3e3e;
+                position: relative;
+                left: 100px;
+                height: 100%;
+            }
+        </style>
+    </head>
 
-    .main {
-      background: #333;
-      width: 100%;
-      float: left;
-      height: 100%;
-    }
-
-    .left {
-      width: 100px;
-      margin-left: -100%;
-      float: left;
-      background: #DC3E3E;
-      position: relative;
-      left: -100px;
-      height: 100%;
-    }
-
-    .right {
-      float: left;
-      width: 100px;
-      margin-left: -100px;
-      background: #DC3E3E;
-      position: relative;
-      left: 100px;
-      height: 100%;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="main">圣杯布局</div>
-    <div class="left">左边栏</div>
-    <div class="right">右边栏</div>
-  </div>
-</body>
-
+    <body>
+        <div class="wrap">
+            <div class="main">圣杯布局</div>
+            <div class="left">左边栏</div>
+            <div class="right">右边栏</div>
+        </div>
+    </body>
 </html>

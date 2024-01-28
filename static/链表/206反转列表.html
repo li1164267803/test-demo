@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            let head = {
+                val: 1,
+                next: {
+                    val: 1,
+                    next: {
+                        val: 1,
+                        next: {
+                            val: 2,
+                            next: {
+                                val: 3,
+                                next: {
+                                    val: 4,
+                                    next: null,
+                                },
+                            },
+                        },
+                    },
+                },
+            }
+            var reverseList = function(head) {
+                let prev = null
+                let curr = head
+                while (curr) {
+                    const next = curr.next
+                    curr.next = prev
+                    prev = curr
+                    curr = next
+                }
+                return prev
+            }
+            console.log('反转链表：', reverseList(head))
+        </script>
+    </body>
+</html>
